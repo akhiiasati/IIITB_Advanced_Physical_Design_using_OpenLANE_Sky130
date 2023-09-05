@@ -4,7 +4,7 @@ This project was completed as part of the "Advanced Physical Design using OpenLA
 
 ## Table of Contents
 - [Software Installation](#software-installation)
-- [Day 1 - Inception of open-source EDA, OpenLANE and Sky130 PDK](#day-1-inception-of-open-source-eda-openlane-and-sky130-pdk)
+- [Day 1 - Inception of open-source EDA, OpenLANE and Sky130 PDK](#day-1-inception-of-open-source-eda,-openlane-and-sky130-pdk)
 
 ## Software Installation
 
