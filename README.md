@@ -7,7 +7,7 @@ This project was completed as part of the "Advanced Physical Design using OpenLA
 - [Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK](#day-1-inception-of-open-source-eda-openlane-and-sky130-pdk)
 
 ## Software Installation
-
+### Step 1:
 To install OpenLANE on Ubuntu, use the following command in the terminal:
 
 ```bash
@@ -29,7 +29,14 @@ After Reboot
 ```bash
 docker run hello-world
 ```
-
+Step 2:
+```bash
+git clone https://github.com/The-OpenROAD-Project/OpenLane
+cd OpenLane
+make
+make test
+```
+Note: The make command compiles and builds the OpenLane tools, and make test runs tests to ensure that the build is successful and that the tools work as expected.
 
 # Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK
 
