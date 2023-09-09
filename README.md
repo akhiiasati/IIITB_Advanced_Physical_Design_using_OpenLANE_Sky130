@@ -174,8 +174,8 @@ Signoff:
 
 - Objective: Perform physical and timing verifications to ensure design correctness.
 - Description: The final step involves thorough verification of the physical design. This includes Design Rule Checking (DRC) to ensure that layout adheres to manufacturing rules, Layout vs. Schematic (LVS) checks to verify consistency between the layout and the netlist, and Static Timing
-
 Analysis (STA) to ensure that timing constraints are met.
+
 Once all these steps are completed successfully, the output of the RTL-to-GDSII flow is a GDSII file that contains the physical layout of the integrated circuit. This GDSII file is then used in the semiconductor manufacturing process to produce the actual ICs.
 
 
