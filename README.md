@@ -46,7 +46,7 @@ Note: The make command compiles and builds the OpenLane tools, and make test run
   - [How to Talk to Computers?](#how-to-talk-to-computers?)
   - [Components of Open-Source Digital ASIC Design](#components-of-open-source-digital-asic-design)
   - [Process Design Kit(PDK)](#process-design-kit-pdk)
-- [SoC Design & OpenLANE](#soc-design-&-openlane)
+- [SoC Design & OpenLANE](#soc-design-openlane)
 - [Simplified RTL2GDS Flow](#simplified-rtl2gds-flow)
 
 ## Overview
@@ -138,6 +138,8 @@ OpenLANE, an open-source EDA tool, is useful for designing SoCs by automating th
 - Open-source PDK data, such as the Google Skywater130 PDK, provides the necessary process information for chip manufacturing.
 
 ## Simplified RTL2GDS Flow
+
+![Screenshot 2023-09-09 152300](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/d28d8fae-22a1-44fd-b592-a281fc13085f)
 
 The RTL-to-GDSII (Register Transfer Level to Graphic Data System II) flow is a crucial process in integrated circuit (IC) design that involves transforming a high-level RTL description of a digital design into a final layout in GDSII format, which is the file format used for manufacturing semiconductor devices. This flow typically consists of several key steps, which I'll document in more detail:
 
