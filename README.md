@@ -45,7 +45,9 @@ Note: The make command compiles and builds the OpenLane tools, and make test run
 - [Inception of Open-Source EDA](#inception-of-open-source-eda)
   - [How to Talk to Computers?](#how-to-talk-to-computers?)
   - [Components of Open-Source Digital ASIC Design](#components-of-open-source-digital-asic-design)
-  - 
+  - [Process Design Kit(PDK)](#process-design-kit-pdk)
+- [SoC Design & OpenLANE](#soc-design-&-openlane)
+- [Simplified RTL2GDS Flow](#simplified-rtl2gds-flow)
 
 ## Overview
 
@@ -75,6 +77,8 @@ RTL Designs: These are digital designs at the Register Transfer Level (RTL) avai
 
 EDA Tools (Electronic Design Automation): Open-source EDA tools play a crucial role in the design flow. Examples include OpenROAD, OpenLANE, and QFlow, which automate various stages of chip design.
 
+![Screenshot 2023-09-09 152218](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/3eda8d5f-e7da-4782-b9a9-88e65ea05283)
+
 PDK (Process Design Kit): The PDK serves as the interface between the chip designer and the fabrication process. It includes essential data files and documents, such as cell libraries, IO libraries, and design rules (DRC, LVS, etc.).
 
 ### Process Design Kit(PDK)
@@ -94,6 +98,7 @@ The collaboration between Google and SkyWater Technology involves the developmen
 - The SkyWater 130nm process refers to a specific semiconductor manufacturing process offered by SkyWater Technology.
 -  It denotes the technology used to fabricate integrated circuits with a feature size of 130 nanometers.
 
+![Screenshot 2023-09-09 152200](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/c2e11272-f744-4307-912c-2cb21dd533d2)
   
 #### PDK (Process Design Kit) Details:
 
@@ -131,6 +136,50 @@ OpenLANE, an open-source EDA tool, is useful for designing SoCs by automating th
 
 - PDK (Process Design Kit) data is crucial for interfacing with semiconductor fabrication foundries.
 - Open-source PDK data, such as the Google Skywater130 PDK, provides the necessary process information for chip manufacturing.
+
+## Simplified RTL2GDS Flow
+
+The RTL-to-GDSII (Register Transfer Level to Graphic Data System II) flow is a crucial process in integrated circuit (IC) design that involves transforming a high-level RTL description of a digital design into a final layout in GDSII format, which is the file format used for manufacturing semiconductor devices. This flow typically consists of several key steps, which I'll document in more detail:
+
+Synthesis:
+
+- Objective: Convert RTL (Register Transfer Level) design into a gate-level netlist using standard cell libraries (SCL).
+- Description: During this phase, the RTL code, written in a hardware description language like VHDL or Verilog, is synthesized into a gate-level representation. This involves mapping the RTL constructs into specific standard cells available in the chosen library. The output is a gate-level netlist.
+
+Floor & Power Planning:
+
+- Objective: Plan the silicon area and ensure robust power distribution.
+- Description: In this step, the chip's physical floorplan is established. This includes determining the location of various functional blocks, I/O pads, and power distribution networks. Careful floor planning is essential to optimize the use of silicon area and ensure efficient power distribution to all parts of the chip.
+
+Placement:
+
+- Objective: Place cells on floorplan rows aligned with predefined sites.
+- Description: The synthesized gate-level cells are placed onto the chip's floorplan. These placements are typically aligned with rows and sites specified by the technology library. The goal is to achieve good utilization of the available area and minimize wirelength for better performance.
+Global Placement:
+
+- Objective: Optimize the initial placement of cells for better overall performance.
+- Description: After the initial placement, a global placement algorithm is applied to optimize the positions of cells. This optimization considers factors such as timing, power, and area. The goal is to find an optimal arrangement that meets design constraints.
+
+Detailed Placement:
+
+- Objective: Refine cell positions to ensure legal placements and meet design rules.
+- Description: Detailed placement fine-tunes the positions of individual cells to ensure they meet legal placement constraints and adhere to design rules. This step helps to further optimize timing, area, and power.
+
+Routing:
+
+- Objective: Create valid patterns for connecting wires between cells.
+- Description: Routing involves the creation of metal interconnects (wires) that connect the outputs of one cell to the inputs of another. The routing process must adhere to design rules to avoid issues like short circuits and timing violations. Various routing algorithms and techniques are used to achieve this.
+
+Signoff:
+
+- Objective: Perform physical and timing verifications to ensure design correctness.
+- Description: The final step involves thorough verification of the physical design. This includes Design Rule Checking (DRC) to ensure that layout adheres to manufacturing rules, Layout vs. Schematic (LVS) checks to verify consistency between the layout and the netlist, and Static Timing
+
+Analysis (STA) to ensure that timing constraints are met.
+Once all these steps are completed successfully, the output of the RTL-to-GDSII flow is a GDSII file that contains the physical layout of the integrated circuit. This GDSII file is then used in the semiconductor manufacturing process to produce the actual ICs.
+
+
+
 
 
 
