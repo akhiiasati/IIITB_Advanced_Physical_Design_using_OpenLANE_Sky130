@@ -79,18 +79,27 @@ IO Libraries: These define the input and output characteristics of the chip's pi
 
 ![Screenshot 2023-09-08 191359](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/8614c949-4432-4125-8eb8-a00c466ef5d0)
 
-### SoC Design & OpenLANE
-Components of Open-Source Digital ASIC Design
-Designing a digital Application Specific Integrated Circuit (ASIC) relies on three critical enablers or elements:
+## SoC Design & OpenLANE
 
-Resistor Transistor Logic Intellectual Property (RTL IPs): These are the foundational building blocks for ASIC designs. Open-source RTL designs are readily accessible through platforms like GitHub, LibreCores, and OpenCores.
+![Screenshot 2023-09-09 143356](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/bfface78-fe96-4741-9df2-b74ce90956f1)
 
-Electronic Design Automation (EDA) Tools: Open-source EDA tools play a pivotal role in the design process, offering robust support for various stages of ASIC development. Notable open-source EDA tools include QFlow, OpenROAD, and OpenLANE.
+System-on-Chip (SoC) design often involves integrating multiple IPs (Intellectual Properties) onto a single chip.
+OpenLANE, an open-source EDA tool, is useful for designing SoCs by automating the chip design process.
+### Components of Open-Source Digital ASIC Design:
 
-Process Design Kit (PDK) Data: The availability of open-source PDK data is a game-changer. The Google Skywater130 PDK is a prime example of open-source PDKs that empower designers with essential process information.
+#### Opensource RTL Designs:
 
-The overarching objective of the ASIC flow is to transform RTL designs into the GDSII format, which serves as the final layout for chip manufacturing. This flow is essentially a software-driven process, often referred to as automated Place & Route (PnR). It combines RTL IPs, EDA tools, and PDK data to create a seamless path from design concept to physical chip realization.
+- RTL IPs (Resistor Transistor Logic Intellectual Property) are essential building blocks for digital ASICs.
+- They can be sourced from open repositories such as GitHub, LibreCores, and OpenCores.
 
-OpenLANE, with its suite of open-source tools, plays a pivotal role in this ecosystem, enabling designers to harness the power of open-source for ASIC development.
+ #### Opensource EDA Tools:
 
-By embracing open-source principles, the world of Electronic Design Automation has seen a democratization of resources and a surge in collaborative innovation, making sophisticated chip design accessible to a broader community of engineers and researchers.
+- EDA (Electronic Design Automation) tools are software applications that facilitate chip design.
+- Open-source EDA tools like QFlow, OpenROAD, and OpenLANE automate various design stages, making ASIC design accessible.
+
+#### Opensource PDK Data:
+
+- PDK (Process Design Kit) data is crucial for interfacing with semiconductor fabrication foundries.
+- Open-source PDK data, such as the Google Skywater130 PDK, provides the necessary process information for chip manufacturing.
+
+
