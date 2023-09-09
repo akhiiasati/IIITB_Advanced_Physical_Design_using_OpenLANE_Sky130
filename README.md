@@ -66,6 +66,8 @@ To understand the significance of open-source EDA, it's crucial to grasp the fun
 
 #### Foundry IP Blocks and Macro Blocks:
 
+![Screenshot 2023-09-08 191359](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/8614c949-4432-4125-8eb8-a00c466ef5d0)
+
 Foundry IP Blocks: These are blocks such as ADC (Analog-to-Digital Converter), DAC (Digital-to-Analog Converter), PLL (Phase-Locked Loop), and SRAM (Static Random-Access Memory). They are designed by foundries and often contain analog components.
 Macro Blocks: These are pure digital logic blocks like RISC-V SoCs (System-on-Chips) and SPI (Serial Peripheral Interface) controllers. They do not typically contain analog parts.
 
@@ -77,8 +79,33 @@ EDA Tools (Electronic Design Automation): Open-source EDA tools play a crucial r
 
 PDK (Process Design Kit): The PDK serves as the interface between the chip designer and the fabrication process. It includes essential data files and documents, such as cell libraries, IO libraries, and design rules (DRC, LVS, etc.).
 
-Google + Skywater 130nm Production PDK:
-The PDK for open-source digital ASIC design is often provided by a collaboration between Google and Skywater. The PDK includes the necessary information for designing and manufacturing ICs using the Skywater 130nm process technology.
+### Process Design Kit(PDK)
+
+A Process Design Kit (PDK) is a collection of essential data and information used in semiconductor chip design. It provides designers with details about the manufacturing process, including the properties of various components, design rules, and guidelines needed to create custom integrated circuits. PDKs serve as a bridge between chip designers and semiconductor foundries, ensuring that designs are compatible with the fabrication process.
+
+The collaboration between Google and SkyWater Technology involves the development and release of an open-source Process Design Kit (PDK) specifically tailored for the SkyWater 130nm semiconductor manufacturing process. Here's a breakdown of this collaboration:
+
+#### Google and SkyWater Technology:
+
+- Google: A multinational technology company known for its internet-related products and services.
+
+- SkyWater Technology: A semiconductor foundry specializing in providing access to advanced semiconductor manufacturing technologies.
+
+#### SkyWater 130nm Process:
+
+- The SkyWater 130nm process refers to a specific semiconductor manufacturing process offered by SkyWater Technology.
+-  It denotes the technology used to fabricate integrated circuits with a feature size of 130 nanometers.
+
+
+  
+#### Open-Source PDK:
+
+- The collaboration between Google and SkyWater resulted in the development of an open-source Process Design Kit (PDK) for the SkyWater 130nm process.
+- The PDK includes essential data and documents required for chip design, such as cell libraries (digital and analog), IO libraries, design rules (DRC, LVS, etc.), and other manufacturing-related information.
+- This open-source PDK aims to make the process of designing and manufacturing custom integrated circuits more accessible and cost-effective.
+
+![Screenshot 2023-09-09 183613](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/5bf530f3-c1e4-4cac-b5e8-3e23e1b896bc)
+
 
 PDK (Process Design Kit) Details:
 
@@ -86,8 +113,6 @@ PDK (Process Design Kit) Details:
 IO Libraries: These define the input and output characteristics of the chip's pins.
 - Design Rules (DRC, LVS, etc.): These documents specify constraints and criteria that must be followed to ensure proper chip functionality and manufacturability.
 - Open-source digital ASIC design combines these components to enable cost-effective and accessible custom chip creation while leveraging the collaborative efforts of the open-source community and utilizing established design and fabrication standards.
-
-![Screenshot 2023-09-08 191359](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/8614c949-4432-4125-8eb8-a00c466ef5d0)
 
 ## SoC Design & OpenLANE
 
@@ -116,32 +141,6 @@ OpenLANE, an open-source EDA tool, is useful for designing SoCs by automating th
 - PDK (Process Design Kit) data is crucial for interfacing with semiconductor fabrication foundries.
 - Open-source PDK data, such as the Google Skywater130 PDK, provides the necessary process information for chip manufacturing.
 
-### Process Design Kit(PDK)
-
-A Process Design Kit (PDK) is a collection of essential data and information used in semiconductor chip design. It provides designers with details about the manufacturing process, including the properties of various components, design rules, and guidelines needed to create custom integrated circuits. PDKs serve as a bridge between chip designers and semiconductor foundries, ensuring that designs are compatible with the fabrication process.
-
-The collaboration between Google and SkyWater Technology involves the development and release of an open-source Process Design Kit (PDK) specifically tailored for the SkyWater 130nm semiconductor manufacturing process. Here's a breakdown of this collaboration:
-
-#### Google and SkyWater Technology:
-
-- Google: A multinational technology company known for its internet-related products and services.
-
-- SkyWater Technology: A semiconductor foundry specializing in providing access to advanced semiconductor manufacturing technologies.
-
-#### SkyWater 130nm Process:
-
-- The SkyWater 130nm process refers to a specific semiconductor manufacturing process offered by SkyWater Technology.
--  It denotes the technology used to fabricate integrated circuits with a feature size of 130 nanometers.
-
-
-  
-#### Open-Source PDK:
-
-- The collaboration between Google and SkyWater resulted in the development of an open-source Process Design Kit (PDK) for the SkyWater 130nm process.
-- The PDK includes essential data and documents required for chip design, such as cell libraries (digital and analog), IO libraries, design rules (DRC, LVS, etc.), and other manufacturing-related information.
-- This open-source PDK aims to make the process of designing and manufacturing custom integrated circuits more accessible and cost-effective.
-
-![Screenshot 2023-09-09 183613](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/5bf530f3-c1e4-4cac-b5e8-3e23e1b896bc)
 
 
 
