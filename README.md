@@ -40,6 +40,12 @@ Note: The make command compiles and builds the OpenLane tools, and make test run
 
 # Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK
 
+## Table of Contents:
+1. [Overview](#overview)
+2. [Inception of Open-Source EDA](#inception-of-open-source-eda)
+  - [How to Talk to Computers?](#how-to-talk-to-computers?)
+  - [Components of Open-Source Digital ASIC Design](#components-of-open-source-digital-asic-design)
+
 ## Overview
 
 OpenLANE is a powerful open-source tool and flow designed for open-source tape-outs. This versatile flow integrates a variety of essential tools, including Yosys, ABC, OpenSTA, Fault, OpenROAD app, Netgen, and Magic. Its primary purpose is to harden chips and macros, ultimately generating the final GDSII layout from the initial design RTL (Register-Transfer Level). The overarching objective of OpenLANE is to achieve a seamless and fully automated process, eliminating the need for extensive human intervention. It's noteworthy that OpenLANE is optimized for compatibility with the Google-Skywater130 Open Source Process Design Kit (PDK).
@@ -81,11 +87,15 @@ IO Libraries: These define the input and output characteristics of the chip's pi
 
 ## SoC Design & OpenLANE
 
-![Screenshot 2023-09-09 143356](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/bfface78-fe96-4741-9df2-b74ce90956f1)
-
 System-on-Chip (SoC) design often involves integrating multiple IPs (Intellectual Properties) onto a single chip.
 OpenLANE, an open-source EDA tool, is useful for designing SoCs by automating the chip design process.
+
+![Screenshot 2023-09-09 150652](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/02234a49-e95e-4a21-8141-ba42eaa224c4)
+
+
 ### Components of Open-Source Digital ASIC Design:
+
+![Screenshot 2023-09-09 143356](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/bfface78-fe96-4741-9df2-b74ce90956f1)
 
 #### Opensource RTL Designs:
 
@@ -101,5 +111,33 @@ OpenLANE, an open-source EDA tool, is useful for designing SoCs by automating th
 
 - PDK (Process Design Kit) data is crucial for interfacing with semiconductor fabrication foundries.
 - Open-source PDK data, such as the Google Skywater130 PDK, provides the necessary process information for chip manufacturing.
+
+### Process Design Kit(PDK)
+
+A Process Design Kit (PDK) is a collection of essential data and information used in semiconductor chip design. It provides designers with details about the manufacturing process, including the properties of various components, design rules, and guidelines needed to create custom integrated circuits. PDKs serve as a bridge between chip designers and semiconductor foundries, ensuring that designs are compatible with the fabrication process.
+
+The collaboration between Google and SkyWater Technology involves the development and release of an open-source Process Design Kit (PDK) specifically tailored for the SkyWater 130nm semiconductor manufacturing process. Here's a breakdown of this collaboration:
+
+#### Google and SkyWater Technology:
+
+- Google: A multinational technology company known for its internet-related products and services.
+
+- SkyWater Technology: A semiconductor foundry specializing in providing access to advanced semiconductor manufacturing technologies.
+
+#### SkyWater 130nm Process:
+
+- The SkyWater 130nm process refers to a specific semiconductor manufacturing process offered by SkyWater Technology.
+-  It denotes the technology used to fabricate integrated circuits with a feature size of 130 nanometers.
+
+
+  
+#### Open-Source PDK:
+
+- The collaboration between Google and SkyWater resulted in the development of an open-source Process Design Kit (PDK) for the SkyWater 130nm process.
+- The PDK includes essential data and documents required for chip design, such as cell libraries (digital and analog), IO libraries, design rules (DRC, LVS, etc.), and other manufacturing-related information.
+- This open-source PDK aims to make the process of designing and manufacturing custom integrated circuits more accessible and cost-effective.
+
+![Screenshot 2023-09-09 183613](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/5bf530f3-c1e4-4cac-b5e8-3e23e1b896bc)
+
 
 
