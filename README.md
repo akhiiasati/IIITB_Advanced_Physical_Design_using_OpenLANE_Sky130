@@ -56,10 +56,8 @@ OpenLANE is a powerful open-source tool and flow designed for open-source tape-o
 ### How to Talk to Computers?
 To understand the significance of open-source EDA, it's crucial to grasp the fundamental process of communicating with computers. The RISC-V Instruction Set Architecture (ISA) serves as the language to interact with computers whose hardware is based on RISC-V cores. When a user intends to run a specific application software on a computer, the corresponding program written in languages like C, C++, or Java must first be translated into instructions by a compiler. These compiler-generated instructions are inherently hardware-dependent. They serve as inputs to the assembler, which in turn produces binary code. This binary code is what the hardware logic within the chip layout comprehends. Depending on the received bits, the digital logic, composed of gates, performs the necessary functions as required by the user of the application software.
 
-![Screenshot 2023-09-08 191049](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/2c56860d-c518-47c1-bff0-ac51bfffcdc5)
 ![Screenshot 2023-09-08 191119](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/9042de19-c0db-4127-87b1-938e287f51b1)
-![Screenshot 2023-09-08 191831](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/31ea6fc7-1e0c-4a73-9316-812527577434)
-![Screenshot 2023-09-08 191230](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/da9df8ad-6e02-4548-9b23-9e25bff65ea3)
+
 ![Screenshot 2023-09-08 191337](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/a9b97643-bb51-4a69-af72-bcbc068ceebf)
 
 ### Components of Open-Source Digital ASIC Design:
