@@ -29,7 +29,7 @@ After Reboot
 ```bash
 docker run hello-world
 ```
-Step 2:
+### Step 2:
 ```bash
 git clone https://github.com/The-OpenROAD-Project/OpenLane
 cd OpenLane
@@ -45,6 +45,7 @@ Note: The make command compiles and builds the OpenLane tools, and make test run
 OpenLANE is a powerful open-source tool and flow designed for open-source tape-outs. This versatile flow integrates a variety of essential tools, including Yosys, ABC, OpenSTA, Fault, OpenROAD app, Netgen, and Magic. Its primary purpose is to harden chips and macros, ultimately generating the final GDSII layout from the initial design RTL (Register-Transfer Level). The overarching objective of OpenLANE is to achieve a seamless and fully automated process, eliminating the need for extensive human intervention. It's noteworthy that OpenLANE is optimized for compatibility with the Google-Skywater130 Open Source Process Design Kit (PDK).
 
 ## Inception of Open-Source EDA
+
 ### How to Talk to Computers?
 To understand the significance of open-source EDA, it's crucial to grasp the fundamental process of communicating with computers. The RISC-V Instruction Set Architecture (ISA) serves as the language to interact with computers whose hardware is based on RISC-V cores. When a user intends to run a specific application software on a computer, the corresponding program written in languages like C, C++, or Java must first be translated into instructions by a compiler. These compiler-generated instructions are inherently hardware-dependent. They serve as inputs to the assembler, which in turn produces binary code. This binary code is what the hardware logic within the chip layout comprehends. Depending on the received bits, the digital logic, composed of gates, performs the necessary functions as required by the user of the application software.
 
@@ -53,6 +54,29 @@ To understand the significance of open-source EDA, it's crucial to grasp the fun
 ![Screenshot 2023-09-08 191831](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/31ea6fc7-1e0c-4a73-9316-812527577434)
 ![Screenshot 2023-09-08 191230](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/da9df8ad-6e02-4548-9b23-9e25bff65ea3)
 ![Screenshot 2023-09-08 191337](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/a9b97643-bb51-4a69-af72-bcbc068ceebf)
+
+### Components of Open-Source Digital ASIC Design:
+
+#### Foundry IP Blocks and Macro Blocks:
+
+Foundry IP Blocks: These are blocks such as ADC (Analog-to-Digital Converter), DAC (Digital-to-Analog Converter), PLL (Phase-Locked Loop), and SRAM (Static Random-Access Memory). They are designed by foundries and often contain analog components.
+Macro Blocks: These are pure digital logic blocks like RISC-V SoCs (System-on-Chips) and SPI (Serial Peripheral Interface) controllers. They do not typically contain analog parts.
+
+#### Open-Source Components:
+
+RTL Designs: These are digital designs at the Register Transfer Level (RTL) available from open-source platforms like GitHub (github.com), LibreCores (librecores.org), and OpenCores (opencores.org).
+EDA Tools (Electronic Design Automation): Open-source EDA tools play a crucial role in the design flow. Examples include OpenROAD, OpenLANE, and QFlow, which automate various stages of chip design.
+PDK (Process Design Kit): The PDK serves as the interface between the chip designer and the fabrication process. It includes essential data files and documents, such as cell libraries, IO libraries, and design rules (DRC, LVS, etc.).
+Google + Skywater 130nm Production PDK:
+
+The PDK for open-source digital ASIC design is often provided by a collaboration between Google and Skywater. The PDK includes the necessary information for designing and manufacturing ICs using the Skywater 130nm process technology.
+PDK (Process Design Kit) Details:
+
+- Cell Libraries: These contain predefined digital and analog cells that designers can use in their custom ICs.
+IO Libraries: These define the input and output characteristics of the chip's pins.
+- Design Rules (DRC, LVS, etc.): These documents specify constraints and criteria that must be followed to ensure proper chip functionality and manufacturability.
+- Open-source digital ASIC design combines these components to enable cost-effective and accessible custom chip creation while leveraging the collaborative efforts of the open-source community and utilizing established design and fabrication standards.
+
 ![Screenshot 2023-09-08 191359](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/8614c949-4432-4125-8eb8-a00c466ef5d0)
 
 ### SoC Design & OpenLANE
