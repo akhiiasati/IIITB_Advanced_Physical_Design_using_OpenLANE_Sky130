@@ -43,10 +43,10 @@ Note: The make command compiles and builds the OpenLane tools, and make test run
 ## Table of Contents:
 - [Overview](#overview)
 - [Inception of Open-Source EDA](#inception-of-open-source-eda)
-  - [How to Talk to Computers?](#how-to-talk-to-computers?)
+  - [How to Talk to Computers?](#how-to-talk-to-computers)
   - [Components of Open-Source Digital ASIC Design](#components-of-open-source-digital-asic-design)
   - [Process Design Kit](#process-design-kit)
-- [SoC Design & OpenLANE](#soc-design-&-Openlane)
+- [SoC Design & OpenLANE](#soc-design-and-Openlane)
 - [Simplified RTL2GDS Flow](#simplified-rtl2gds-flow)
 
 ## Overview
@@ -110,7 +110,7 @@ IO Libraries: These define the input and output characteristics of the chip's pi
 ![Screenshot 2023-09-09 183613](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/5bf530f3-c1e4-4cac-b5e8-3e23e1b896bc)
 
 
-## SoC Design & OpenLANE
+## SoC Design and OpenLANE
 
 System-on-Chip (SoC) design often involves integrating multiple IPs (Intellectual Properties) onto a single chip.
 OpenLANE, an open-source EDA tool, is useful for designing SoCs by automating the chip design process.
