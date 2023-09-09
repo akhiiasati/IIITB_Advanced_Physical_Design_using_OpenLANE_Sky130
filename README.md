@@ -45,8 +45,8 @@ Note: The make command compiles and builds the OpenLane tools, and make test run
 - [Inception of Open-Source EDA](#inception-of-open-source-eda)
   - [How to Talk to Computers?](#how-to-talk-to-computers?)
   - [Components of Open-Source Digital ASIC Design](#components-of-open-source-digital-asic-design)
-  - [Process Design Kit(PDK)](#process-design-kit-pdk)
-- [SoC Design & OpenLANE](#soc-design-openlane)
+  - [Process Design Kit](#process-design-kit)
+- [SoC Design & OpenLANE](#soc-design-&-Openlane)
 - [Simplified RTL2GDS Flow](#simplified-rtl2gds-flow)
 
 ## Overview
@@ -81,7 +81,7 @@ EDA Tools (Electronic Design Automation): Open-source EDA tools play a crucial r
 
 PDK (Process Design Kit): The PDK serves as the interface between the chip designer and the fabrication process. It includes essential data files and documents, such as cell libraries, IO libraries, and design rules (DRC, LVS, etc.).
 
-### Process Design Kit(PDK)
+### Process Design Kit
 
 A Process Design Kit (PDK) is a collection of essential data and information used in semiconductor chip design. It provides designers with details about the manufacturing process, including the properties of various components, design rules, and guidelines needed to create custom integrated circuits. PDKs serve as a bridge between chip designers and semiconductor foundries, ensuring that designs are compatible with the fabrication process.
 
