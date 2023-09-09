@@ -41,10 +41,11 @@ Note: The make command compiles and builds the OpenLane tools, and make test run
 # Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK
 
 ## Table of Contents:
-1. [Overview](#overview)
-2. [Inception of Open-Source EDA](#inception-of-open-source-eda)
+- [Overview](#overview)
+- [Inception of Open-Source EDA](#inception-of-open-source-eda)
   - [How to Talk to Computers?](#how-to-talk-to-computers?)
   - [Components of Open-Source Digital ASIC Design](#components-of-open-source-digital-asic-design)
+  - 
 
 ## Overview
 
@@ -71,11 +72,14 @@ Macro Blocks: These are pure digital logic blocks like RISC-V SoCs (System-on-Ch
 #### Open-Source Components:
 
 RTL Designs: These are digital designs at the Register Transfer Level (RTL) available from open-source platforms like GitHub (github.com), LibreCores (librecores.org), and OpenCores (opencores.org).
-EDA Tools (Electronic Design Automation): Open-source EDA tools play a crucial role in the design flow. Examples include OpenROAD, OpenLANE, and QFlow, which automate various stages of chip design.
-PDK (Process Design Kit): The PDK serves as the interface between the chip designer and the fabrication process. It includes essential data files and documents, such as cell libraries, IO libraries, and design rules (DRC, LVS, etc.).
-Google + Skywater 130nm Production PDK:
 
+EDA Tools (Electronic Design Automation): Open-source EDA tools play a crucial role in the design flow. Examples include OpenROAD, OpenLANE, and QFlow, which automate various stages of chip design.
+
+PDK (Process Design Kit): The PDK serves as the interface between the chip designer and the fabrication process. It includes essential data files and documents, such as cell libraries, IO libraries, and design rules (DRC, LVS, etc.).
+
+Google + Skywater 130nm Production PDK:
 The PDK for open-source digital ASIC design is often provided by a collaboration between Google and Skywater. The PDK includes the necessary information for designing and manufacturing ICs using the Skywater 130nm process technology.
+
 PDK (Process Design Kit) Details:
 
 - Cell Libraries: These contain predefined digital and analog cells that designers can use in their custom ICs.
