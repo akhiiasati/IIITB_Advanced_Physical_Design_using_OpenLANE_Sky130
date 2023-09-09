@@ -66,10 +66,10 @@ To understand the significance of open-source EDA, it's crucial to grasp the fun
 
 #### Foundry IP Blocks and Macro Blocks:
 
-![Screenshot 2023-09-08 191359](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/8614c949-4432-4125-8eb8-a00c466ef5d0)
-
 Foundry IP Blocks: These are blocks such as ADC (Analog-to-Digital Converter), DAC (Digital-to-Analog Converter), PLL (Phase-Locked Loop), and SRAM (Static Random-Access Memory). They are designed by foundries and often contain analog components.
 Macro Blocks: These are pure digital logic blocks like RISC-V SoCs (System-on-Chips) and SPI (Serial Peripheral Interface) controllers. They do not typically contain analog parts.
+
+![Screenshot 2023-09-08 191359](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/8614c949-4432-4125-8eb8-a00c466ef5d0)
 
 #### Open-Source Components:
 
@@ -96,23 +96,16 @@ The collaboration between Google and SkyWater Technology involves the developmen
 - The SkyWater 130nm process refers to a specific semiconductor manufacturing process offered by SkyWater Technology.
 -  It denotes the technology used to fabricate integrated circuits with a feature size of 130 nanometers.
 
-
   
-#### Open-Source PDK:
-
-- The collaboration between Google and SkyWater resulted in the development of an open-source Process Design Kit (PDK) for the SkyWater 130nm process.
-- The PDK includes essential data and documents required for chip design, such as cell libraries (digital and analog), IO libraries, design rules (DRC, LVS, etc.), and other manufacturing-related information.
-- This open-source PDK aims to make the process of designing and manufacturing custom integrated circuits more accessible and cost-effective.
-
-![Screenshot 2023-09-09 183613](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/5bf530f3-c1e4-4cac-b5e8-3e23e1b896bc)
-
-
-PDK (Process Design Kit) Details:
+#### PDK (Process Design Kit) Details:
 
 - Cell Libraries: These contain predefined digital and analog cells that designers can use in their custom ICs.
 IO Libraries: These define the input and output characteristics of the chip's pins.
 - Design Rules (DRC, LVS, etc.): These documents specify constraints and criteria that must be followed to ensure proper chip functionality and manufacturability.
 - Open-source digital ASIC design combines these components to enable cost-effective and accessible custom chip creation while leveraging the collaborative efforts of the open-source community and utilizing established design and fabrication standards.
+
+![Screenshot 2023-09-09 183613](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/5bf530f3-c1e4-4cac-b5e8-3e23e1b896bc)
+
 
 ## SoC Design & OpenLANE
 
