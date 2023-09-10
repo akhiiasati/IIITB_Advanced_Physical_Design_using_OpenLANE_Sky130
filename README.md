@@ -272,33 +272,27 @@ skywater-pdk: Contains Process Design Kit (PDK) files provided by the foundry.
 open_pdks: Contains scripts to set up PDKs for open-source tools.
 sky130A: Contains Sky130 PDK files, which are specific to the SkyWater foundry's 130nm process.
 
-### To invoke OpenLANE and prepare a design, follow these steps:
-
-- Open a terminal or command prompt.
-- Start Docker (if not already running).
-- Run the OpenLANE flow script using the following commands:
+### To invoke OpenLANE and prepare a design:
 
 ```bash
-docker
-./flow.tcl -interactive
-```
-These commands will open an interactive session and prepare OpenLANE for use.
-
-Once in the interactive session, you can specify the version of OpenLANE you want to use. For example, to use OpenLANE version 0.9, run:
-
-```bash
-package require openlane 0.9
+cd OpenLane &&  # Navigate to the OpenLane directory
+make Mount &&   # Set up the environment
+./flow.tcl -interactive &&  # Start an interactive session with OpenLANE
+package require openlane 0.9 &&  # Specify the OpenLANE version (0.9)
+prep -design picorv32a  # Prepare the "picorv32a" design
 ```
 
-This ensures that you are using the specified version of OpenLANE.
+This single line of code performs each step in the sequence:
+1. Navigates to the OpenLane directory.
+2. Sets up the environment with make Mount.
+3. Starts an interactive session with OpenLANE using ./flow.tcl -interactive.
+4. Specifies the desired OpenLANE version (0.9) with package require openlane 0.9.
+5. Prepares the "picorv32a" design using prep -design picorv32a.
 
-Finally, to prepare a specific design (in this case, "picorv32a"), use the "prep" command:
 
-```tcl
-prep -design picorv32a
-```
 
-This command will prepare the design "picorv32a" for further processing using OpenLANE.
+
+
 
 #### Please note that these steps assume that you have Docker installed and configured on your system and that you have the necessary OpenLANE and design files set up in your environment.
 
