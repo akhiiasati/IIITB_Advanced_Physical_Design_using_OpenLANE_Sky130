@@ -148,15 +148,24 @@ Synthesis:
 - Objective: Convert RTL (Register Transfer Level) design into a gate-level netlist using standard cell libraries (SCL).
 - Description: During this phase, the RTL code, written in a hardware description language like VHDL or Verilog, is synthesized into a gate-level representation. This involves mapping the RTL constructs into specific standard cells available in the chosen library. The output is a gate-level netlist.
 
+![Screenshot 2023-09-10 104354](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/4bce7439-b48b-4d65-b8fe-7945c01d05db)
+![Screenshot 2023-09-10 104421](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/39881f8a-7fc8-44ee-a162-06fe11a01437)
+
 Floor & Power Planning:
 
 - Objective: Plan the silicon area and ensure robust power distribution.
 - Description: In this step, the chip's physical floorplan is established. This includes determining the location of various functional blocks, I/O pads, and power distribution networks. Careful floor planning is essential to optimize the use of silicon area and ensure efficient power distribution to all parts of the chip.
 
+![Screenshot 2023-09-10 104447](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/e0d77ec1-c9eb-414c-9478-2497feb29f78)
+![Screenshot 2023-09-10 104558](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/49c36d01-4029-408e-8cb3-95e831ee7820)
+
 Placement:
 
 - Objective: Place cells on floorplan rows aligned with predefined sites.
 - Description: The synthesized gate-level cells are placed onto the chip's floorplan. These placements are typically aligned with rows and sites specified by the technology library. The goal is to achieve good utilization of the available area and minimize wirelength for better performance.
+
+![Screenshot 2023-09-10 105323](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/1865d4bf-54ab-45c3-9bc4-3d6b610a1e31)
+
 Global Placement:
 
 - Objective: Optimize the initial placement of cells for better overall performance.
@@ -167,10 +176,23 @@ Detailed Placement:
 - Objective: Refine cell positions to ensure legal placements and meet design rules.
 - Description: Detailed placement fine-tunes the positions of individual cells to ensure they meet legal placement constraints and adhere to design rules. This step helps to further optimize timing, area, and power.
 
+![Screenshot 2023-09-10 105341](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/f8249a5b-1ef0-4a5c-b243-0408ea990a39)
+
+Clock Tree Synthesis (CTS):
+
+- Objective: Distribute the clock signal effectively to all flip-flops in a chip.
+
+- Description: Clock Tree Synthesis (CTS) is the process of creating a structured network of clock distribution to ensure that the clock signal reaches all flip-flops with minimal skew. Typically designed as a tree-like structure, CTS optimizes the placement of buffers and routing to minimize clock skew, ensuring synchronous operation and preventing timing issues in digital integrated circuits.
+
+![Screenshot 2023-09-10 105607](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/26d54bc7-a607-4c52-b45c-a151449059ab)
+
 Routing:
 
 - Objective: Create valid patterns for connecting wires between cells.
 - Description: Routing involves the creation of metal interconnects (wires) that connect the outputs of one cell to the inputs of another. The routing process must adhere to design rules to avoid issues like short circuits and timing violations. Various routing algorithms and techniques are used to achieve this.
+
+![Screenshot 2023-09-10 105956](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/cbe8ae8e-104e-40cb-ad32-e9ff8ac93616)
+![Screenshot 2023-09-10 105940](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/c748039c-7a02-4ecf-ba7d-0a05f043a4bc)
 
 Signoff:
 
@@ -178,11 +200,8 @@ Signoff:
 - Description: The final step involves thorough verification of the physical design. This includes Design Rule Checking (DRC) to ensure that layout adheres to manufacturing rules, Layout vs. Schematic (LVS) checks to verify consistency between the layout and the netlist, and Static Timing
 Analysis (STA) to ensure that timing constraints are met.
 
+![Screenshot 2023-09-10 110054](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/4a4cffe7-42ff-47a4-b3ce-2ebac094c67a)
+
 Once all these steps are completed successfully, the output of the RTL-to-GDSII flow is a GDSII file that contains the physical layout of the integrated circuit. This GDSII file is then used in the semiconductor manufacturing process to produce the actual ICs.
-
-
-
-
-
 
 
