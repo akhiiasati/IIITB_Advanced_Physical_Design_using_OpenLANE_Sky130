@@ -272,3 +272,38 @@ skywater-pdk: Contains Process Design Kit (PDK) files provided by the foundry.
 open_pdks: Contains scripts to set up PDKs for open-source tools.
 sky130A: Contains Sky130 PDK files, which are specific to the SkyWater foundry's 130nm process.
 
+### To invoke OpenLANE and prepare a design, follow these steps:
+
+- Open a terminal or command prompt.
+- Start Docker (if not already running).
+- Run the OpenLANE flow script using the following commands:
+
+```bash
+docker
+./flow.tcl -interactive
+```
+These commands will open an interactive session and prepare OpenLANE for use.
+
+Once in the interactive session, you can specify the version of OpenLANE you want to use. For example, to use OpenLANE version 0.9, run:
+
+```bash
+package require openlane 0.9
+```
+
+This ensures that you are using the specified version of OpenLANE.
+
+Finally, to prepare a specific design (in this case, "picorv32a"), use the "prep" command:
+
+```tcl
+prep -design picorv32a
+```
+
+This command will prepare the design "picorv32a" for further processing using OpenLANE.
+
+#### Please note that these steps assume that you have Docker installed and configured on your system and that you have the necessary OpenLANE and design files set up in your environment.
+
+In OpenLane, configuration settings for ASIC designs follow this priority order:
+
+1. sky130_xxxxx_config.tcl in OpenLane/designs/[design]/: Design-specific settings, if available.
+2. config.tcl in OpenLane/designs/[design]/: Secondary design-specific settings if the first file is missing.
+3. Default values in OpenLane/configuration/: General default settings used if no design-specific configurations are provided.
