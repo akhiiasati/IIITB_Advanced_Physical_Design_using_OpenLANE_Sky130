@@ -211,34 +211,64 @@ Once all these steps are completed successfully, the output of the RTL-to-GDSII 
 
 OpenLane is indeed an open-source ASIC (Application-Specific Integrated Circuit) development flow reference designed for use with the Sky130 PDK (Process Design Kit) and also compatible with the OSU 130nm process. It offers a comprehensive set of open-source tools that enable the entire RTL (Register-Transfer Level) to GDSII (Graphic Data System II) flow for ASIC design. Below, I'll provide more details about the various stages of the flow and address the issue of Antenna Rules Violation.
 
+### Open-Source EDA Tools Used in OpenLANE:
+
+
+
+| EDA Tool                    | Task                                                         |
+|-----------------------------|--------------------------------------------------------------|
+| **RTL Synthesis & Technology Mapping** |                                                              |
+| yosys                       | Performs RTL synthesis.                                     |
+| abc                         | Performs technology mapping.                                |
+| **Floorplan & Power Distribution Network (PDN)** |              |
+| init_fp                     | Defines the core area, rows (for placement), and tracks (for routing). |
+| ioPlacer                    | Places macro input and output ports.                        |
+| pdn                         | Generates the power distribution network.                   |
+| tapcell                     | Inserts welltap and decap cells in the floorplan.          |
+| **Placement**               |                                                              |
+| RePLace                     | Performs global placement.                                  |
+| Resizer                     | Performs optional optimizations on the design.               |
+| OpenDP                      | Performs detailed placement to legalize the globally placed components. |
+| **Static Timing Analysis**   |                                                              |
+| OpenSTA                    | Performs static timing analysis on the resulting netlist to generate timing reports. |
+| **Clock Tree Synthesis**    |                                                              |
+| TritonCTS                   | Synthesizes the clock distribution network (the clock tree). |
+| **Routing**                 |                                                              |
+| FastRoute                   | Performs global routing to generate a guide file for the detailed router. |
+| CU-GR                       | Another option for performing global routing.              |
+| TritonRoute                 | Performs detailed routing.                                  |
+| **SPEF Extraction**         |                                                              |
+| SPEF-Extractor              | Performs SPEF (Standard Parasitic Exchange Format) extraction. |
+| **GDSII Generation**        |                                                              |
+| Magic                       | Streams out the final GDSII layout file from the routed DEF (Design Exchange Format). |
+| Klayout                     | Streams out the final GDSII layout file from the routed DEF as a backup. |
+| **Checks**                  |                                                              |
+| Magic                       | Performs DRC (Design Rule Check) Checks and Antenna Checks.   |
+| Klayout                     | Performs DRC Checks.                                         |
+| Netgen                      | Performs LVS (Layout vs. Schematic) Checks.                   |
+| CVC                         | Performs Circuit Validity Checks.                            |
+
+
+### OpenLANE Design Stages:
+
 ![Screenshot 2023-09-10 113826](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/7d852f8f-9214-4db5-826d-8cc88af1fe91)
 
-### Input Data:
+OpenLANE's ASIC design flow is divided into several stages, each involving the use of specific EDA tools:
 
-- RTL Files: These are the Register-Transfer Level descriptions of the digital circuit design.
-- SDC File: The Synopsys Design Constraints (SDC) file contains timing constraints, such as clock frequencies and data arrival times.
-- PDK Files: The Process Design Kit files contain information about the manufacturing process, including the standard cell library, which consists of pre-designed logic gates and other components.
+- Synthesis: RTL synthesis using yosys, technology mapping using abc, and static timing analysis using OpenSTA.
+- Floorplan and PDN: Defines core area, places macro input and output ports, generates the power distribution network, and inserts welltap and decap cells.
+- Placement: Global placement using RePLace, optional optimizations using Resizer, and detailed placement to legalize globally placed components using OpenDP.
+- CTS (Clock Tree Synthesis): Synthesizes the clock distribution network using TritonCTS.
+- Routing: Global routing using FastRoute or CU-GR as an alternative option, and detailed routing using TritonRoute.
+- SPEF Extraction: Extracts SPEF information.
+- GDSII Generation: Generates the final GDSII layout file using Magic and Klayout.
+- Checks: Performs DRC (Design Rule Check) checks, antenna checks, LVS checks using Netgen, and circuit validity checks using CVC.
 
-### Yosys:
+### OpenLANE Files Structure:
 
-- Yosys is a popular open-source synthesis tool used to convert the RTL code into a gate-level netlist. It performs technology-independent synthesis, producing a generic representation of the design.
+The file structure for OpenLANE typically includes the following directories:
 
-### ABC (A System for Sequential Synthesis and Verification):
+skywater-pdk: Contains Process Design Kit (PDK) files provided by the foundry.
+open_pdks: Contains scripts to set up PDKs for open-source tools.
+sky130A: Contains Sky130 PDK files, which are specific to the SkyWater foundry's 130nm process.
 
-- ABC is used to map the generic gate-level components generated by Yosys to the standard cell library provided by the PDK. This step is crucial for optimizing the design using the available standard cells.
-
-### Synthesis Exploration:
-
-- ABC scripts are employed to explore various synthesis strategies. These strategies aim to optimize the design based on specific objectives, such as minimizing area or achieving the best timing performance. Different strategies can be tried to find the most suitable design trade-offs.
-
-### Logic Equivalency Checking (LEC):
-
-- LEC is used to compare the resulting gate-level netlist after optimization, which includes place and route, to the gate-level netlist generated during the synthesis phase. This step ensures that the optimizations and transformations introduced in the design flow have not altered the logical behavior of the circuit.
-
-### Antenna Rules Violation:
-
-In ASIC design, long wire segments can accumulate charges, acting as antennas. This can lead to voltage spikes that may damage connected transistor gates. To mitigate this issue, two common solutions are mentioned:
-
-- Bridging: Bridging involves adding extra metal layers to break up long wire segments, preventing charge accumulation.
-- Antenna Diode Insertion: Antenna diode insertion involves strategically placing diodes in the circuit to provide a path for charge leakage, preventing voltage spikes.
-- Addressing Antenna Rules Violation is critical in ASIC design to ensure the long-term reliability and functionality of the integrated circuit.
