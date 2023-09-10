@@ -58,9 +58,8 @@ OpenLANE is a powerful open-source tool and flow designed for open-source tape-o
 ### How to Talk to Computers?
 To understand the significance of open-source EDA, it's crucial to grasp the fundamental process of communicating with computers. The RISC-V Instruction Set Architecture (ISA) serves as the language to interact with computers whose hardware is based on RISC-V cores. When a user intends to run a specific application software on a computer, the corresponding program written in languages like C, C++, or Java must first be translated into instructions by a compiler. These compiler-generated instructions are inherently hardware-dependent. They serve as inputs to the assembler, which in turn produces binary code. This binary code is what the hardware logic within the chip layout comprehends. Depending on the received bits, the digital logic, composed of gates, performs the necessary functions as required by the user of the application software.
 
-![Screenshot 2023-09-08 191119](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/9042de19-c0db-4127-87b1-938e287f51b1)
-
-![Screenshot 2023-09-08 191337](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/a9b97643-bb51-4a69-af72-bcbc068ceebf)
+![Screenshot 2023-09-08 191119](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/acdad48c-201b-4e84-9e18-08a5cfb7eac8)
+![Screenshot 2023-09-08 191337](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/2eb17a6d-078c-4ea5-9d84-93b736846a59)
 
 ### Components of Open-Source Digital ASIC Design:
 
@@ -99,6 +98,7 @@ The collaboration between Google and SkyWater Technology involves the developmen
 -  It denotes the technology used to fabricate integrated circuits with a feature size of 130 nanometers.
 
 ![Screenshot 2023-09-09 152200](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/c2e11272-f744-4307-912c-2cb21dd533d2)
+![Screenshot 2023-09-09 152125](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/67ecef1a-8e67-4fbd-8d71-d92c4166b563)
   
 #### PDK (Process Design Kit) Details:
 
@@ -156,15 +156,15 @@ Floor & Power Planning:
 - Objective: Plan the silicon area and ensure robust power distribution.
 - Description: In this step, the chip's physical floorplan is established. This includes determining the location of various functional blocks, I/O pads, and power distribution networks. Careful floor planning is essential to optimize the use of silicon area and ensure efficient power distribution to all parts of the chip.
 
-![Screenshot 2023-09-10 104447](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/e0d77ec1-c9eb-414c-9478-2497feb29f78)
-![Screenshot 2023-09-10 104558](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/49c36d01-4029-408e-8cb3-95e831ee7820)
+![Screenshot 2023-09-10 104558](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/c46af752-4e82-498b-99f7-f7f8490787e2)
+![Screenshot 2023-09-10 104447](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/ba0f3d7e-8dc7-47d9-b8d8-7519a3cfc0f8)
 
 Placement:
 
 - Objective: Place cells on floorplan rows aligned with predefined sites.
 - Description: The synthesized gate-level cells are placed onto the chip's floorplan. These placements are typically aligned with rows and sites specified by the technology library. The goal is to achieve good utilization of the available area and minimize wirelength for better performance.
 
-![Screenshot 2023-09-10 105323](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/1865d4bf-54ab-45c3-9bc4-3d6b610a1e31)
+![Screenshot 2023-09-10 105323](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/288496f3-1d43-4bed-b748-129cc11b6dbc)
 
 Global Placement:
 
@@ -176,7 +176,7 @@ Detailed Placement:
 - Objective: Refine cell positions to ensure legal placements and meet design rules.
 - Description: Detailed placement fine-tunes the positions of individual cells to ensure they meet legal placement constraints and adhere to design rules. This step helps to further optimize timing, area, and power.
 
-![Screenshot 2023-09-10 105341](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/f8249a5b-1ef0-4a5c-b243-0408ea990a39)
+![Screenshot 2023-09-10 105341](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/25a76118-8efb-4676-a69a-a4141dd98e94)
 
 Clock Tree Synthesis (CTS):
 
@@ -184,15 +184,15 @@ Clock Tree Synthesis (CTS):
 
 - Description: Clock Tree Synthesis (CTS) is the process of creating a structured network of clock distribution to ensure that the clock signal reaches all flip-flops with minimal skew. Typically designed as a tree-like structure, CTS optimizes the placement of buffers and routing to minimize clock skew, ensuring synchronous operation and preventing timing issues in digital integrated circuits.
 
-![Screenshot 2023-09-10 105607](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/26d54bc7-a607-4c52-b45c-a151449059ab)
+![Screenshot 2023-09-10 105607](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/d7f0f47c-c49a-46d5-bf53-022d7c689d36)
 
 Routing:
 
 - Objective: Create valid patterns for connecting wires between cells.
 - Description: Routing involves the creation of metal interconnects (wires) that connect the outputs of one cell to the inputs of another. The routing process must adhere to design rules to avoid issues like short circuits and timing violations. Various routing algorithms and techniques are used to achieve this.
 
-![Screenshot 2023-09-10 105956](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/cbe8ae8e-104e-40cb-ad32-e9ff8ac93616)
-![Screenshot 2023-09-10 105940](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/c748039c-7a02-4ecf-ba7d-0a05f043a4bc)
+![Screenshot 2023-09-10 105956](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/484bd0c2-f3b0-4d7b-bda2-a44bded8afb0)
+![Screenshot 2023-09-10 105940](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/62f93708-168f-4945-a118-6ca15070403c)
 
 Signoff:
 
@@ -200,7 +200,7 @@ Signoff:
 - Description: The final step involves thorough verification of the physical design. This includes Design Rule Checking (DRC) to ensure that layout adheres to manufacturing rules, Layout vs. Schematic (LVS) checks to verify consistency between the layout and the netlist, and Static Timing
 Analysis (STA) to ensure that timing constraints are met.
 
-![Screenshot 2023-09-10 110054](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/4a4cffe7-42ff-47a4-b3ce-2ebac094c67a)
+![Screenshot 2023-09-10 110054](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/46d28ad7-9297-4dd9-b770-7d265d2de61a)
 
 Once all these steps are completed successfully, the output of the RTL-to-GDSII flow is a GDSII file that contains the physical layout of the integrated circuit. This GDSII file is then used in the semiconductor manufacturing process to produce the actual ICs.
 
