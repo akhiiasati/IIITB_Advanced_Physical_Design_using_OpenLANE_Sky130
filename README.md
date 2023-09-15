@@ -340,6 +340,11 @@ Flop ratio = 1613 / 14876 = 0.1084, which is equivalent to 10.84%.
 
 7. Synthesis Statistics Report: The synthesis statistics report is accessible within the "reports" directory. It is typically the last Yosys-generated file, as files are usually listed chronologically based on the date of modification.
 
+
 8. Synthesis Timings Report: The synthesis timings report, which provides insights into the time taken for the synthesis process, should be documented. However, specific details about the timing report are not provided in the text.
 
-  
+![Screenshot 2023-09-15 233747](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/47c5253d-dabd-4ec7-bf56-ffdeea5979db)
+
+9. Synthesis Power Report: The Synthesis Power Report is a vital document generated during the synthesis phase of digital integrated circuit design. This report offers critical insights into the power consumption characteristics of the synthesized design.
+
+![Screenshot 2023-09-16 003301](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/21be8ad6-2c44-45a5-8639-516447a95255)
