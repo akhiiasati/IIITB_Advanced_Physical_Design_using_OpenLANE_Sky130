@@ -317,6 +317,8 @@ or alternatively:
 openlane -placement -run_synthesis
 ```
 
+![Screenshot 2023-09-15 232347](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/8096bb50-0989-4701-bf91-63f702cb8c17)
+
 4. RTL to Gate Level Conversion: The Yosys and ABC tools are employed for the conversion of RTL (Register Transfer Level) design to a gate-level netlist.
 
 5. Flop Ratio Calculation:
