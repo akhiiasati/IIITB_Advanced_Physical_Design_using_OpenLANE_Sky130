@@ -289,10 +289,7 @@ This single line of code performs each step in the sequence:
 4. Specifies the desired OpenLANE version (0.9) with package require openlane 0.9.
 5. Prepares the "picorv32a" design using prep -design picorv32a.
 
-
-
-
-
+![Screenshot 2023-09-15 191632](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/c90b98bc-f2a7-469e-93f1-f1041c88182e)
 
 #### Please note that these steps assume that you have Docker installed and configured on your system and that you have the necessary OpenLANE and design files set up in your environment.
 
@@ -301,3 +298,46 @@ In OpenLane, configuration settings for ASIC designs follow this priority order:
 1. sky130_xxxxx_config.tcl in OpenLane/designs/[design]/: Design-specific settings, if available.
 2. config.tcl in OpenLane/designs/[design]/: Secondary design-specific settings if the first file is missing.
 3. Default values in OpenLane/configuration/: General default settings used if no design-specific configurations are provided.
+
+#### Review of files & Synthesis step
+
+1. Folder Generation: A "runs" folder is generated within the "picorv32a" folder.
+
+2. Merged File Creation: During the merging operation in the picorv32a design preparation, a merged file is created by merging the LEF (Library Exchange Format) and TECHLEF (Technology Library Exchange Format) files.
+
+3. Synthesis Execution: The synthesis of the picorv32a design is initiated within the openlane interactive terminal using the command:
+
+```bash
+run_synthesis
+```
+
+or alternatively:
+
+```bash
+openlane -placement -run_synthesis
+```
+
+4. RTL to Gate Level Conversion: The Yosys and ABC tools are employed for the conversion of RTL (Register Transfer Level) design to a gate-level netlist.
+
+5. Flop Ratio Calculation:
+
+Flop ratio is calculated using the formula:
+
+```mathematica
+Flop ratio = (Number of D Flip flops) / (Total Number of cells)
+```
+
+Given values:
+```mathematics
+Number of D Flip flops (dfxtp_4): 1613
+Total Number of cells: 14876
+Flop ratio = 1613 / 14876 = 0.1084, which is equivalent to 10.84%.
+```
+
+6. Synthesis Step Verification: The success of the synthesis step can be verified by checking the synthesis folder for the synthesized netlist file, typically having a ".v" file extension.
+
+7. Synthesis Statistics Report: The synthesis statistics report is accessible within the "reports" directory. It is typically the last Yosys-generated file, as files are usually listed chronologically based on the date of modification.
+
+8. Synthesis Timings Report: The synthesis timings report, which provides insights into the time taken for the synthesis process, should be documented. However, specific details about the timing report are not provided in the text.
+
+  
