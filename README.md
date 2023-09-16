@@ -380,10 +380,11 @@ Utilisation Factor =  ------------------------------
 
 The Aspect Ratio of a chip describes the geometric shape of the chip and is defined as the ratio of its height to its width.
 
+```mathematics
                     Height 
 Aspect Ratio =  --------------
                     Width   
-
+```
 #### Significance:
 
 - An Aspect Ratio of 1 implies that the chip is square-shaped, where the height and width are equal.
@@ -450,3 +451,24 @@ The netlist serves as the blueprint for establishing connections between differe
 6. ```FP_CORE_HMETAL``` - Specifies the horizontal metal layer used for signal routing.
 
 Note: In practice, the values for vertical and horizontal metal layers (FP_CORE_VMETAL and FP_CORE_HMETAL) may often be one more than what's specified in the files due to conventions or indexing.
+
+
+To run the Picorv32a floorplan in OpenLANE, you can simply use the following command:
+
+```bash
+run_floorplan
+```
+![Screenshot 2023-09-16 194146](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/af252eb6-af92-4ad8-8c18-fa3942e341a3)
+
+This command will initiate the floorplanning process for your ASIC design using the Picorv32a core.
+
+After running the floorplan in OpenLANE:
+
+- Locate the ```.def``` file in results/floorplan.
+- Review floorplan configurations in ```floorplan.tcl```, overridden by settings in ```config.tcl``` and ```sky130A_sky130_fd_sc_hd_config.tcl```.
+- To view the floorplan in Magic, navigate to the results/floorplan directory and use this command:
+
+```bash
+magic -T /path/to/tech/file/sky130A.tech lef read ../../tmp/merged.min.lef
+```
+- Ensure the path is correct and points to your .def file.
