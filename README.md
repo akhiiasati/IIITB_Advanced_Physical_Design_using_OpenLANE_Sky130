@@ -5,6 +5,7 @@ This project was completed as part of the "Advanced Physical Design using OpenLA
 ## Table of Contents
 - [Software Installation](#software-installation)
 - [Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK](#day-1-inception-of-open-source-eda-openlane-and-sky130-pdk)
+- [Day 2: Good floorplan vs bad floorplan and introduction to library cells](#Day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
 
 ## Software Installation
 ### Step 1:
@@ -348,3 +349,66 @@ Flop ratio = 1613 / 14876 = 0.1084, which is equivalent to 10.84%.
 9. Synthesis Power Report: The Synthesis Power Report is a vital document generated during the synthesis phase of digital integrated circuit design. This report offers critical insights into the power consumption characteristics of the synthesized design.
 
 ![Screenshot 2023-09-16 003301](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/21be8ad6-2c44-45a5-8639-516447a95255)
+
+# Day 2: Good floorplan vs bad floorplan and introduction to library cells
+
+- [Chip Floor planning considerations](#chip-floor-planning-considerations)
+  - [Utilization Factor & Aspect Ratio](#utilization-factor-&-aspect-ratio)
+
+## Chip Floor planning considerations
+
+### Utilization Factor & Aspect Ratio
+
+Two critical parameters play a pivotal role in floorplanning: the Utilization Factor and the Aspect Ratio. They are defined as follows:
+
+### Utilization Factor:
+
+The Utilization Factor is a metric that quantifies how efficiently the available core area of the chip is used by the netlist, which represents all the interconnected components of the IC.
+
+```mathematics
+                         Area occupied by netlist
+Utilisation Factor =  ------------------------------
+                            Total area of core      
+```
+#### Significance:
+
+- A Utilization Factor of 1 indicates 100% utilization, meaning that the entire core area is occupied by the netlist, leaving no room for additional components or routing.
+
+- In practical IC design, the Utilization Factor is typically in the range of 0.5 to 0.6, as it's important to leave space for buffer cells, routing wires, and layout flexibility.
+
+### Aspect Ratio:
+
+The Aspect Ratio of a chip describes the geometric shape of the chip and is defined as the ratio of its height to its width.
+
+                    Height 
+Aspect Ratio =  --------------
+                    Width   
+
+#### Significance:
+
+- An Aspect Ratio of 1 implies that the chip is square-shaped, where the height and width are equal.
+- Any value other than 1 indicates a rectangular chip, where one dimension (height or width) is greater than the other.
+- The choice of Aspect Ratio can impact the chip's layout, area efficiency, and ease of routing signals between components.
+
+In practical IC design, finding the right balance between maximizing resource utilization (Utilization Factor) and accommodating the chip's specific requirements or constraints (Aspect Ratio) is essential. Chip designers must consider factors such as signal integrity, manufacturability, and overall performance when making decisions regarding these parameters.
+
+#### Examples:
+
+![Screenshot 2023-09-16 121218](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/bc2650db-e401-412d-9293-bc33dbd39a5b)
+
+![Screenshot 2023-09-16 155207](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/78aab7fd-c3f7-427b-959f-572ae0142a9b)
+
+### Pre-placed Cells
+After determining the Utilization Factor and Aspect Ratio, the next step is defining the positions of pre-placed cells. Pre-placed cells are intellectual properties (IPs) consisting of substantial combinational logic and maintain a fixed position once placed. They are strategically positioned in the chip layout before the placement and routing phases, hence their name, pre-placed cells.
+
+![Screenshot 2023-09-16 160203](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/8c6301de-de7e-4f46-b5f3-9afdf80361f7)
+![Screenshot 2023-09-16 160630](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/b37d5d9c-52a6-4718-8e9d-84057618d921)
+![Screenshot 2023-09-16 160651](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/e71049f6-ebea-426f-bc90-81a8e72ec934)
+
+![Screenshot 2023-09-16 161751](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/966eacd4-348b-42b8-922c-d9f5785349df)
+
+### Decoupling Capacitors
+Pre-placed cells must be surrounded by decoupling capacitors (decaps). The resistance and capacitance introduced by long wire connections can cause a significant drop in the power supply voltage before reaching the logic circuits. This voltage drop can push the signal into an undefined range, outside the noise margin. Decaps are large capacitors charged to the power supply voltage and positioned in proximity to the logic circuitry. Their primary purpose is to decouple the circuit from the power supply by providing the necessary current. This action prevents crosstalk, stabilizes the voltage, and enables local communication within the circuit.
+
+### Power Planning
+While pre-placed macros can have dedicated decoupling capacitors, it is not practical to provide each block on the chip with its own decaps. Instead, effective power planning is crucial. Power planning ensures that each block has access to dedicated VDD (power) and VSS (ground) pads, which are connected to the horizontal and vertical power and ground lines forming a power mesh. This network of power and ground lines helps distribute power uniformly across the chip, minimizing voltage drops and ensuring that each block receives a reliable power supply.
