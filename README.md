@@ -405,10 +405,16 @@ After determining the Utilization Factor and Aspect Ratio, the next step is defi
 ![Screenshot 2023-09-16 160630](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/b37d5d9c-52a6-4718-8e9d-84057618d921)
 ![Screenshot 2023-09-16 160651](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/e71049f6-ebea-426f-bc90-81a8e72ec934)
 
-![Screenshot 2023-09-16 161751](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/966eacd4-348b-42b8-922c-d9f5785349df)
+![Screenshot 2023-09-16 161751](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/c6644f78-0098-4435-a074-fc8fefd1d229)
 
 ### Decoupling Capacitors
 Pre-placed cells must be surrounded by decoupling capacitors (decaps). The resistance and capacitance introduced by long wire connections can cause a significant drop in the power supply voltage before reaching the logic circuits. This voltage drop can push the signal into an undefined range, outside the noise margin. Decaps are large capacitors charged to the power supply voltage and positioned in proximity to the logic circuitry. Their primary purpose is to decouple the circuit from the power supply by providing the necessary current. This action prevents crosstalk, stabilizes the voltage, and enables local communication within the circuit.
+
+![Screenshot 2023-09-16 162816](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/df2575f0-1a59-46f1-8b55-3e2c00041d8c)
+![Screenshot 2023-09-16 162823](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/6112cecc-a80e-4854-b1ba-0967f8144f41)
+![Screenshot 2023-09-16 162839](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/579186ae-5aa5-4e83-9b20-f52443935f26)
+![Screenshot 2023-09-16 162912](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/0922ae66-875b-442b-a7c8-17cfc2f61a38)
+![Screenshot 2023-09-16 162929](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/f54646ab-500c-4cde-a2c5-8d047904b6ac)
 
 ### Power Planning
 While pre-placed macros can have dedicated decoupling capacitors, it is not practical to provide each block on the chip with its own decaps. Instead, effective power planning is crucial. Power planning ensures that each block has access to dedicated VDD (power) and VSS (ground) pads, which are connected to the horizontal and vertical power and ground lines forming a power mesh. This network of power and ground lines helps distribute power uniformly across the chip, minimizing voltage drops and ensuring that each block receives a reliable power supply.
