@@ -418,3 +418,35 @@ Pre-placed cells must be surrounded by decoupling capacitors (decaps). The resis
 
 ### Power Planning
 While pre-placed macros can have dedicated decoupling capacitors, it is not practical to provide each block on the chip with its own decaps. Instead, effective power planning is crucial. Power planning ensures that each block has access to dedicated VDD (power) and VSS (ground) pads, which are connected to the horizontal and vertical power and ground lines forming a power mesh. This network of power and ground lines helps distribute power uniformly across the chip, minimizing voltage drops and ensuring that each block receives a reliable power supply.
+
+![Screenshot 2023-09-16 165941](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/5c24e8a7-66c3-44b7-806c-2ff004a8b19e)
+![Screenshot 2023-09-16 170012](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/405e01ac-e5a1-4d07-9945-e2e318d9e100)
+![Screenshot 2023-09-16 170054](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/9e30d909-9779-40d6-8bae-3cb1fc28515a)
+![Screenshot 2023-09-16 170111](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/7a4f0583-aa8f-4730-aae3-b90ac4027d25)
+![Screenshot 2023-09-16 170155](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/41d76cf9-4325-4633-ac41-f7c15c81b00f)
+![Screenshot 2023-09-16 170210](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/d5893532-cfee-4516-a604-bca370aed1d0)
+
+### Pin Placement
+
+The netlist serves as the blueprint for establishing connections between different logic gates. Within the designated space between the core and die of the integrated circuit (IC), I/O pins are strategically placed. This positioning of I/O pads is determined by the connectivity details specified in VHDL or Verilog code. Following this, a deliberate placement strategy is employed to block out areas for pre-placed macros, ensuring a clear distinction between the macro and pin regions.
+
+![Screenshot 2023-09-16 172415](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/7ce89903-d8a4-4e67-902d-60986692d1d3)
+
+#### Floorplan in OpenLANE: To run a floorplan in OpenLANE and view it in Magic
+
+- Importance Files (Increasing Priority Order):
+
+1. ```floorplan.tcl``` - Contains system default environment variables for the floorplan process.
+2. ```config.tcl``` - General configuration settings for the ASIC design.
+3. ```sky130A_sky130_fd_sc_hd_config.tcl``` - Specific configuration for the SKY130 process technology.
+
+- Floorplan Environment Variables (Switches):
+
+1. ```FP_CORE_UTIL``` - Specifies the desired core utilization in the floorplan, indicating how much of the core area should be occupied.
+2. ```FP_ASPECT_RATIO``` - Defines the aspect ratio (width-to-height ratio) of the floorplan, which affects the physical layout.
+3. ```FP_CORE_MARGIN``` - Sets the margin area between the core of the ASIC and the die boundary, allowing space for various purposes.
+4. ```FP_IO_MODE``` - Determines pin configurations. A value of 1 typically represents equidistant pin placement, while 0 indicates non-equidistant pin placement.
+5. ```FP_CORE_VMETAL``` - Specifies the vertical metal layer used for routing signals within the core.
+6. ```FP_CORE_HMETAL``` - Specifies the horizontal metal layer used for signal routing.
+
+Note: In practice, the values for vertical and horizontal metal layers (FP_CORE_VMETAL and FP_CORE_HMETAL) may often be one more than what's specified in the files due to conventions or indexing.
