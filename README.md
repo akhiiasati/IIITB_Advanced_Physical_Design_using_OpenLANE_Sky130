@@ -472,3 +472,42 @@ After running the floorplan in OpenLANE:
 magic -T /home/akhilasati/vsdstdcelldesign/libs/sky130A.tech lef read /home/akhilasati/OpenLane/designs/picorv32a/runs/RUN_2023.09.16_14.30.58/tmp/merged.min.lef def read picorv32a.def &
 ```
 - Ensure the path is correct and points to your .def file.
+
+![Screenshot 2023-09-16 211057](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/53acc47e-a0e5-473a-bd86-bc6e1351988d)
+
+- You can zoom in the Magic layout by selecting an area with a combination of mouse clicks (left and right) and then pressing the "z" key.
+- To identify components, simply select them in the layout and use the "what" command in the tkcon window.
+- Zooming in also reveals the presence of decoupling capacitors (decaps) within the Picorv32a chip.
+- You'll typically find the standard cell located in the bottom left corner of the layout.
+
+![Screenshot 2023-09-16 225620](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/20a6b7fc-c888-4ac1-8839-5ce008609dcb)
+
+![Screenshot 2023-09-16 225805](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/b5881522-971a-4696-9d8e-4e306ccd1d33)
+
+### Placement
+In the OpenLANE ASIC flow, the placement step is a crucial stage in designing an integrated circuit
+
+#### Placement Optimization
+
+Placement optimization in design refers to the process of strategically positioning logic cells and components on a silicon die to achieve specific design goals. This optimization occurs in two main stages:
+
+1. Global Placement:
+
+- During global placement, an attempt is made to find an initial, optimal position for all cells in the circuit, even if it results in some illegal placements where cells may overlap.
+- The primary optimization objective is to minimize the total wire length or half parameter wire length, which helps improve the overall performance of the design.
+
+2. Detailed Placement:
+
+- After global placement, the position of cells is adjusted to ensure they comply with legal placement constraints.
+- Legalization is necessary to meet timing requirements and to ensure that the design is manufacturable.
+
+#### Running Placement in OpenLANE and Viewing in Magic:
+
+To run the placement stage in OpenLANE and visualize the placement results in Magic, you can use the following command:
+
+```bash
+run_placement
+```
+
+This command initiates the placement process, optimizing the initial cell positions to achieve legality and meet timing constraints. After running this command, you can view the placement in Magic to assess the physical layout of your integrated circuit.
+
