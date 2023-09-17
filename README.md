@@ -452,6 +452,7 @@ The netlist serves as the blueprint for establishing connections between differe
 
 Note: In practice, the values for vertical and horizontal metal layers (FP_CORE_VMETAL and FP_CORE_HMETAL) may often be one more than what's specified in the files due to conventions or indexing.
 
+![183446309-a0714ec5-0619-4327-bdfe-890c19cc97e0](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/b8bf7aa4-4366-4d1b-b647-c53ab7f04a7b)
 
 To run the Picorv32a floorplan in OpenLANE, you can simply use the following command:
 
@@ -485,9 +486,11 @@ magic -T /home/akhilasati/vsdstdcelldesign/libs/sky130A.tech lef read /home/akhi
 ![Screenshot 2023-09-16 225805](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/b5881522-971a-4696-9d8e-4e306ccd1d33)
 
 ### Placement
-In the OpenLANE ASIC flow, the placement step is a crucial stage in designing an integrated circuit
+In the OpenLANE ASIC flow, the placement step is a crucial stage in designing an integrated circuit.
 
 #### Placement Optimization
+
+![Screenshot 2023-09-17 120544](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/0216db6d-83d6-4bd8-9e24-7f0b5b71cfd7)
 
 Placement optimization in design refers to the process of strategically positioning logic cells and components on a silicon die to achieve specific design goals. This optimization occurs in two main stages:
 
@@ -511,4 +514,125 @@ run_placement
 
 This command initiates the placement process, optimizing the initial cell positions to achieve legality and meet timing constraints. After running this command, you can view the placement in Magic to assess the physical layout of your integrated circuit.
 
+![Screenshot 2023-09-17 001745](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/ac6a4fad-dc83-4f38-8a15-5ebe35c206d0)
+
+The main objective of the placement stage in ASIC design is to achieve the convergence of the overflow value. A decreasing overflow value during the placement run indicates that the design is gradually converging, and this is a positive sign that the placement process is progressing successfully.
+
+Once the placement is completed, you can visualize the design using the Magic layout tool. To view the design, navigate to the `results/placement` directory and use a command like the following:
+
+```bash
 magic -T /home/akhilasati/vsdstdcelldesign/libs/sky130A.tech lef read /home/akhilasati/OpenLane/designs/picorv32a/runs/RUN_2023.09.16_18.33.33/tmp/merged.max.lef def read picorv32.def &
+```
+This command invokes Magic with the specified technology library and reads in the `LEF (Library Exchange Format) file` and the `.def (Placement) file` to visualize the placement and layout of the `Picorv32a` chip. The ability to view the design in Magic is crucial for verifying the correctness and quality of the placement results.
+
+![Screenshot 2023-09-17 001531](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/75d33109-3fb4-41dd-9e4d-048e5d6b2c9c)
+
+Zoomed-in views of the standard cell placement:
+
+![Screenshot 2023-09-17 001601](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/830a376a-dad5-4aa7-b982-cf93033177a2)
+
+Note: In many ASIC design flows, the generation of the Power Distribution Network (PDN) is traditionally included as part of the floorplan step. However, it's important to clarify that in the openLANE flow, the PDN is not generated during the floorplan step. Instead, the sequence of steps is floorplan, placement, Clock Tree Synthesis (CTS), and then PDN generation.
+
+### Library Characterization
+
+![Screenshot 2023-09-17 120714](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/2422b339-12f1-41a9-b45e-0288fecce19d)
+![Screenshot 2023-09-17 121125](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/c2f2a98d-d31a-4cef-8381-c91761450706)
+
+Library Characterization in the ASIC design process involves creating reliable building blocks, such as standard cells, for chip designs.Here's a summarized overview of the process:
+
+#### Input Sources:
+
+- Utilizes data from libraries containing standard cells, macros, IPs, and decaps.
+- These libraries offer various cell flavors with different characteristics, like size, delays, and threshold voltages.
+- Larger cell sizes provide higher drive strength for longer and thicker wires, but larger threshold voltages result in slower switching speeds (slower clock).
+
+#### Cell Design Flow Inputs:
+
+![Screenshot 2023-09-17 121205](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/d06613c4-9e70-40e0-be91-58d0643eeb6b)
+![Screenshot 2023-09-17 121150](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/8294fdc4-b52c-456a-92a0-1c03cf4c6466)
+
+
+Obtains inputs from the foundry's Process Design Kits (PDK):
+- DRC & LVS Rules, including tech files and poly substrate parameters.
+- SPICE Models, specifying threshold, linear regions, saturation region equations, and foundry-specific parameters for NMOS and PMOS transistors.
+- User-Defined Specs, including cell height, cell width (based on drive strength), supply voltage, and metal layer requirements.
+
+#### Design Process:
+
+- Ensures that library cell development adheres to input rules to prevent errors when used in actual designs.
+- The cell design flow consists of:
+  - Circuit Design, which defines the cell's logical function using a circuit design language (CDL).
+  - Transistor Modeling, where PMOS and NMOS transistors are sized to meet library requirements.
+  - Layout Design, optimizing the cell's physical layout for area efficiency, often using tools like the Magic layout tool.
+
+#### Outputs:
+Produces critical outputs:
+- `GDSII:` The layout file in GDSII format.
+- `LEF:` Defines the cell's width and height for placement and routing.
+- `Extracted SPICE Netlist (.cir):` Includes parasitic elements (resistance, capacitance) for circuit simulations.
+
+![Screenshot 2023-09-17 134514](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/bcd6effd-4dc8-458c-9e47-c857ff15da52)
+![Screenshot 2023-09-17 134809](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/ad227879-dacd-4bb7-b94b-1f808c0f8078)
+![Screenshot 2023-09-17 134832](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/e0043aa2-6745-4400-96f2-fa95f81fca7f)
+![Screenshot 2023-09-17 134751](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/27a2197b-db9c-4934-b852-c122443f5df3)
+
+#### Characterization:
+
+- Characterizes the library cell's behavior and performance using tools like GUNA software.
+- Outputs include timing, noise, and power models, ensuring the cell meets design specifications.
+
+Library Characterization is an essential step in ASIC design, providing reliable building blocks for creating complex and efficient digital circuits.
+
+![Screenshot 2023-09-17 135258](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/5fc97700-826b-4430-b4fd-4ef3be9f4845)
+![Screenshot 2023-09-17 135311](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/44f97991-eb96-48ff-84b2-247f81df0507)
+
+### General timing characterization parameters
+
+![Screenshot 2023-09-17 135341](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/2698ca58-b1e8-466e-ac0e-9fc8b32877c9)
+
+
+In digital timing analysis, various timing parameters and threshold values are used to determine the behavior of digital signals as they transition between logic levels. Here are the definitions for the provided timing parameters:
+
+`slew_low_rise_thr:` This is the threshold value at which the signal is considered to be transitioning from a low level to a rising edge. It's set at 20% of the signal's voltage range.
+
+`slew_high_rise_thr:` This threshold value represents the point at which the signal is transitioning from a high level to a rising edge. It's set at 80% of the signal's voltage range.
+
+`slew_low_fall_thr:` Similar to the first parameter, this threshold represents the point at which the signal transitions from a low level to a falling edge. It's also set at 20% of the voltage range.
+
+`slew_high_fall_thr:` This threshold value indicates the transition from a high level to a falling edge. It's set at 80% of the voltage range.
+
+`in_rise_thr:` This threshold, set at 50% of the voltage range, represents the point at which the input signal is transitioning from a rising edge.
+
+`in_fall_thr:` Similar to the previous parameter, this threshold at 50% of the voltage range indicates the transition from a falling edge in the input signal.
+
+`out_rise_thr:` At 50% of the voltage range, this threshold represents the point at which the output signal is transitioning to a rising edge.
+
+`out_fall_thr:` Similarly, this threshold at 50% of the voltage range indicates the transition point to a falling edge in the output signal.
+
+![183231913-a9b3826b-5139-4bdc-b12b-3495b87cd8b9](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/e80af409-d9e1-48aa-86f7-70fd9bdb88f4)
+
+Additionally, some important timing calculations are mentioned:
+
+`Rise Delay:` Calculated as the time at the out_fall_thr minus the time at the in_rise_thr. It measures the time it takes for a signal to transition from a rising edge at the input to a falling edge at the output.
+
+```
+rise delay =  time(out_fall_thr) - time(in_rise_thr)
+```
+
+`Fall Transition Time:` Computed as the time at the slew_high_fall_thr minus the time at the slew_low_fall_thr. It represents the time it takes for a signal to transition from a high level to a low level.
+
+```
+Fall transition time: time(slew_high_fall_thr) - time(slew_low_fall_thr)
+```
+
+`Rise Transition Time:` Calculated as the time at the slew_high_rise_thr minus the time at the slew_low_rise_thr. It indicates the time it takes for a signal to transition from a low level to a high level.
+
+```
+Rise transition time: time(slew_high_rise_thr) - time(slew_low_rise_thr)
+```
+
+Below are the timing variables for propagation delay. The red is input waveform and blue is output waveform of the buffer. The left side is rise delay and right side is fall delay.
+
+![183232515-fe3cef76-8a2f-475d-9a64-392fc2fda111](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/4337a1b9-4ffb-431a-8beb-9ef647d345f0)
+
+Negative propagation delay is unexpected. That means the output comes before the input so designer needs to choose correct threshold point to produce positive delay. Delay threshold is usually 50% and slew rate threshold is usually 20%-80%.
