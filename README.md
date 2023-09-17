@@ -707,3 +707,158 @@ plot out vs in
 
 These steps are essential for conducting SPICE simulations to analyze the performance of CMOS components and circuits accurately.
 
+## CMOS inverter Switching Threshold Vm
+
+The switching threshold (Vm) of a CMOS inverter refers to the voltage level at which the input (Vin) and the output (Vout) of the inverter become equal. In other words, Vm is the point on the inverter's transfer characteristic where the transition between the high and low logic states occurs.
+
+At this switching threshold (Vm), both the PMOS (p-channel metal-oxide-semiconductor) and NMOS (n-channel metal-oxide-semiconductor) transistors within the CMOS inverter are in the ON state. This means that both transistors are conducting, allowing a path for current to flow from the power supply to ground through the transistors. As a result, there is a leakage current in the inverter at this point.
+
+Understanding the switching threshold Vm is crucial in CMOS design because it defines the point at which the logic level changes, and it can impact the speed and power consumption of digital circuits. Designers often optimize CMOS circuits to ensure that the switching threshold occurs at the desired voltage level and that the transition between logic states is sharp and well-defined.
+
+![Screenshot 2023-09-17 171242](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/94c2f81c-4be4-4e7c-b01d-f429c151a1ca)
+
+## 16 Mask CMOS Fabrication
+
+
+The CMOS (Complementary Metal-Oxide-Semiconductor) fabrication process you've outlined, known as the 16-Mask CMOS Process, is a fundamental and widely used technique for manufacturing integrated circuits. Here's a summary of the key steps:
+
+Substrate Selection: The process begins with selecting a substrate, typically a P-type silicon wafer. The substrate provides the foundation upon which the IC will be built.
+
+Creating Active Regions for Transistors:
+
+1. Substrate Selection: The process begins with selecting a substrate, typically a P-type silicon wafer. The substrate provides the foundation upon which the IC will be built.
+
+2. Creating Active Regions for Transistors:
+
+- `Isolation:` Separate transistor regions using silicon dioxide (SiO2) for electrical isolation.
+- `Mask 1:` A mask protects areas that should not be etched away, preserving active regions.
+- `Photoresist Layer:` This layer can be selectively removed with UV light, defining patterns.
+- `Si3N4 Layer:` Silicon nitride (Si3N4) prevents uncontrolled SiO2 growth during oxidation.
+- `SiO2 Layer (LOCOS):` Local Oxidation of Silicon (LOCOS) grows SiO2 for isolation between transistors.
+
+![187062659-9e18e9a5-eff4-4d01-804d-cc1e10597486](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/745d6c5d-3a14-4e46-9585-9ca19474bc82)
+
+3. N-Well and P-Well Fabrication: These are created to provide the necessary substrates for PMOS (N-Well) and NMOS (P-Well) transistors.
+
+- `Dopant Materials:` Phosphorus (with 5 valence electrons) is used for the N-Well, while Boron (with 3 valence electrons) is used for the P-Well.
+- `Mask 2:` This mask protects the N-Well (PMOS side) during the fabrication of the P-Well (NMOS side).
+- `Mask 3:` Mask 3 protects the P-Well (NMOS side) while the N-Well (PMOS side) is being fabricated.
+
+![187099587-4a837f08-b6d3-4cb9-afe6-75ee8d88cfff](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/17dba3a7-402c-40cb-9351-d979b8ca6a71)
+
+4. Formation of Gate: Gate fabrication impacts the threshold voltage of transistors.
+
+![187111068-874f408a-d41b-4b16-a5f0-49edfced8926](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/c50d1ad5-b6c5-4b66-b16b-19672b5eaf0f)
+
+Key factors affecting threshold voltage include:
+  
+- `Doping Concentration:` Controlled via ion implantation, with Mask 4 for Boron implantation in NMOS P-Well and Mask 5 for Arsenic implantation in PMOS N-Well.
+- `Oxide Capacitance:` Controlled by adjusting oxide thickness; the SiO2 layer is removed and rebuilt to the desired thickness.
+
+`Mask 6:` This mask is used for gate formation using a polysilicon layer.
+
+![187116601-0ac34212-3622-4719-9309-fca887ad995a](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/e0779a91-0d91-4a74-8da3-106625ce9e82)
+
+5. Lightly Doped Drain Formation: Before creating the source and drain layers, lightly doped impurities are introduced:
+
+- `Mask 7:` Used for N-type implantation (lightly doped) for NMOS transistors.
+- `Mask 8:` Employed for P-type implantation (lightly doped) for PMOS transistors.
+
+Heavily Doped Impurity: The heavily doped impurity (N+ for NMOS and P+ for PMOS) is used for the actual source and drain regions. The lightly doped impurity helps maintain spacing between the source and drain, preventing hot electron and short-channel effects.
+
+![187121868-94dfade0-2c63-4c9c-afef-942ef9662d5a](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/ecc61d02-b095-4c3d-8cb4-1744f8a2c754)
+
+6. Source and Drain Formation: For the creation of the source and drain regions:
+- `Mask 9:` Used for N+ implantation.
+- `Mask 10:` Employed for P+ implantation.
+- `Channeling Prevention:` To prevent implantations from penetrating too deep into the substrate, a screen oxide layer is added before implantation.
+- `Side-Wall Spacers:` These spacers help maintain the N-/P- regions while implanting the N+/P+ regions.
+
+![187128442-76d48790-53a0-4ad2-9856-924f3efd33eb](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/fd44b096-fb2e-4f74-be54-1a0f2b39b7aa)
+
+7. Form Contacts and Interconnects: In this step, different materials are used for interconnections and contacts:
+- `TiN:` Used for local interconnections and bringing contacts to the top.
+- `TiS2:` Employed for contacts to the actual Drain-Gate-Source.
+
+Mask 11: This mask is used to etch off the TiN interconnect for the first-layer contact.
+
+![187141267-b043152d-0a76-4101-90ec-82c9adcc64e2](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/f213be41-368a-469a-90ac-81d97ef9b3a0)
+
+8. Higher Level Metal Formation: This step involves the formation of higher-level metal interconnects. It includes the following sub-steps:
+
+- `Planarization via CMP (Chemical Mechanical Polishing):` The layer is planarized before adding a metal interconnect.
+- `Aluminum Contact:` Aluminum contacts are used to connect the lower contact to the higher metal layer.
+- `Repetition:` The process is repeated until the contact reaches the outermost layer.
+
+`Mask 12:` Used for creating the first contact hole.
+
+`Mask 13:` Employed for the first Aluminum contact layer.
+
+`Mask 14:` Used for the second contact hole.
+
+`Mask 15:` Employed for the second Aluminum contact layer.
+
+`Mask 16:` Used for making contact to the topmost layer.
+
+![187158161-4d230654-5102-4225-8e58-d6d8ed950990](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/262f58ff-f37f-4bd2-96c3-23db52d6bc4d)
+
+
+To integrate the CMOS inverter standard cell layout and perform SPICE extraction, follow these steps:
+
+Clone the vsdstdcelldesign repository within your openlane working directory:
+
+```shell
+git clone https://github.com/nickson-jose/vsdstdcelldesign
+```
+This command will create a folder named "vsdstdcelldesign" in your openlane directory.
+
+To invoke Magic and view the `"sky130_inv.mag"` file, you need to include the "sky130A.tech" file along with its path. You can simplify this by copying the `"sky130A.tech"`file from the "magic" folder to the `"vsdstdcelldesign"` folder:
+```shell
+cp /path/to/openlane/pdks/sky130A/libs.tech/magic/sky130A.tech /path/to/openlane_working_dir/vsdstdcelldesign
+```
+Replace "/path/to/" with the actual paths to your openlane and vsdstdcelldesign directories.
+
+Now, you can invoke Magic to view the "sky130_inv.mag" file:
+```shell
+magic -T sky130A.tech sky130_inv.mag &
+```
+This command will open Magic with the specified technology file, allowing you to view and work with the CMOS inverter layout.
+
+command chalna hai screeenshot dena idahr
+
+
+Sky130's first layer is known as the local interconnect layer or "Locali." To verify a layout as that of a CMOS inverter:
+
+1. Observe P-diffusion and N-diffusion regions connected with Polysilicon.
+
+2. Check the drain and source connections. Ensure that the drains of both PMOS and NMOS are connected to the output port (usually labeled as "Y"), and the sources of both are connected to the power supply VDD (often labeled as "VPWR").
+
+3. LEF (Library Exchange Format) is a format used to provide information about cell boundaries, VDD and GND lines, but it does not contain information about the logic of the circuit. It is also used to protect intellectual property (IP).
+
+SPICE extraction from a .mag (Magic) layout to a .spice (SPICE) file can be achieved within the Magic environment using the following commands in tkcon:
+
+```css
+extract all
+ext2spice cthresh 0 rethresh 0
+ext2spice
+```
+These commands perform the extraction process.
+
+
+idhar comad run krne hai
+
+
+The SPICE deck (sky130_in.spice) is updated to include the PMOS and NMOS libraries (pshort.lib and nshort.lib). Additionally, the minimum grid size of the inverter, obtained from the Magic layout, is included in the deck using the command .option scale=0.01u. The model names in the MOSFET definitions are also modified: the PMOS model name is changed to pshort.model.0, and the NMOS model name is changed to nshort.model.0.
+
+Finally voltage sources and simulation commands are defined as follows:
+```bash
+VDD VPWR 0 3.3V
+VSS VGND 0 0
+Va A VGND PUSLE(0V 3.3V 0 0.1ns 0.1 ns 2ns 4ns)
+.tran 1n 20n
+.control
+run 
+.endc
+.end
+```
+The final sky130_inv.spice file is modified to:
