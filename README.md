@@ -944,7 +944,7 @@ To ensure that the ports are located at the intersection points of the tracks, y
 grid 0.46um 0.34um 0.23um 0.17um
 ```
 
-photo lahgani hai idhar
+![Screenshot 2023-09-17 201901](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/741bff2b-5c5e-4edd-8842-3f9f3a81d5d6)
 
 ### Create port definition
 
@@ -956,8 +956,50 @@ Creating port definitions for your cell is an important step in the design proce
 
 These steps will allow you to define ports and set the correct class and use attributes for each port. Defining ports in this way ensures that your cell's connectivity is properly conveyed to the tools in a standard format, making it easier for downstream processes like placement and routing.
 
-photo lagana hainidhar
+![Screenshot 2023-09-17 202757](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/f8e51024-3922-4290-8f72-45d6e16ba401)
 
 To define ports in Magic Layout, create boxes on specific layers corresponding to the ports, and label them with names. Attach sticky labels specifying the associated layer name. Enable the "Port enable" checkbox and uncheck "Default" for each box to designate them as ports. This process ensures proper identification and utilization of ports in the design.
 
-photo idahar
+![Screenshot 2023-09-17 202829](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/1e89ffd8-7724-4f49-ad22-ac84513cc15b)
+
+In the provided figures, port A (input port) and port Y (output port) are defined on the locali (local interconnect) layer. The number in the textarea near the "enable" checkbox specifies the order in which the ports will be written in the LEF file, with 0 being the first.
+
+For power and ground layers, the port definitions can be similar or different from the signal layer. In this case, ground and power connections are defined on metal1, as indicated by the sticky label.
+
+![Screenshot 2023-09-17 212447](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/f2434904-a221-4018-8c4d-402f88a966da)
+
+![Screenshot 2023-09-17 212518](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/dae7b870-9908-42cd-bea7-1ce3a8e4f941)
+
+### Standard Cell LEF generation
+
+To generate the LEF (Library Exchange Format) for the CMOS Inverter standard cell, the purpose of ports must be defined as follows:
+
+Select port A in Magic:
+
+- Port class: input
+- Port use: signal
+
+Select Y area:
+
+- Port class: output
+- Port use: signal
+
+Select VPWR area:
+
+- Port class: inout
+- Port use: power
+
+Select VGND area:
+
+- Port class: inout
+- Port use: ground
+
+After defining the port attributes, you can carry out LEF extraction in tkcon using the following command:
+
+```bash
+lef write
+```
+
+This will generate the LEF file for the CMOS Inverter standard cell with the specified port definitions.
+
+
