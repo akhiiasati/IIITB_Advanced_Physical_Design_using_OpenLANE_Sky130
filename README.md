@@ -9,6 +9,7 @@ This project was completed as part of the "Advanced Physical Design using OpenLA
 - [DAY 3: Design a Library Cell using Magic Layout and Ngspice Characterization](#day-3-design-a-library-cell-using-magic-layout-and-ngspice-characterization)
 - [DAY 4: Pre-layout Timing Analysis and Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
 - [DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA](#day-5-final-steps-for-rtl2gds-using-tritonroute-and-opensta)
+- [Acknowledgements](#acknowledgements)
 
 ## Software Installation
 ### Step 1:
@@ -52,6 +53,7 @@ Note: The make command compiles and builds the OpenLane tools, and make test run
   - [Process Design Kit](#process-design-kit)
 - [SoC Design & OpenLANE](#soc-design-and-Openlane)
 - [Simplified RTL2GDS Flow](#simplified-rtl2gds-flow)
+
 
 ## Overview
 
@@ -1071,7 +1073,8 @@ add_lefs -src $lefs
 # Run synthesis
 run_synthesis
 ```
-photo 
+
+![Screenshot 2023-09-17 235417](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/ef52787b-6ad6-437b-bb37-4b45a66a13c6)
 
 Next floorplan is run, followed by placement:
 
@@ -1079,13 +1082,13 @@ Next floorplan is run, followed by placement:
 run_floorplan
 run_placement
 ```
+
 To check the layout invoke magic from the results/placement directory:
 
 ```bash
 magic -T /home/devipriya/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.max.lef def read picorv32a.def &
 ```
-
-Since the custom standard cell has been plugged into the openLANE flow, it would be visible in the layout.
+![Screenshot 2023-09-18 000548](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/a0261630-9e9b-402e-9322-dab37c6198b4)
 
 
 ## Post-synthesis timing analysis
@@ -1103,8 +1106,6 @@ Change synthesis strategy, synthesis buffering and synthesis sizing values
 Review maximum fanout of cells and replace cells with high fanout
 
 The lef file generated:
-
-![Screenshot 2023-09-17 230957](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/96546344-a304-4460-925d-87ee4e07842e)
 
 ```bash
 VERSION 5.7 ;
@@ -1225,13 +1226,25 @@ STA report for setup analysis (max path):
 
 # DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA
 
+## Maze Routing:
+One simple routing algorithm is Maze Routing or Lee's routing:
+
+The shortest path is one that follows a steady increment of one (1-to-9 on the example below). There might be multiple path like this but the best path that the tool will choose is one with less bends. The route should not be diagonal and must not overlap an obstruction such as macros.
+This algorithm however has high run time and consume a lot of memory thus more optimized routing algorithm is preferred (but the principles stays the same where route with shortest path and less bends is preferred)
+![190376984-ff6f4f02-af4f-472d-9422-294157221e9f](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/a7ba28c2-8469-49e2-859e-f88b766b7dda)
+
+## Power Distribution Network (review):
+This is just a review on PDN. The power and ground rails has a pitch of 2.72um thus the reason why the customized inverter cell has a height of 2.72 or else the power and ground rails will not be able to power up the cell. Looking at the LEF file runs/[date]/tmp/merged.nom.lef, you will notice that all cells are of height 2.72um and only width differs.
+
+As shown below, power and ground flows from power/ground pads -> power/ground ring-> power/ground straps -> power/ground rails.
+![190429025-49ab6e33-8a67-4cea-8086-86eb73122282](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/31437c0f-0b37-4dfc-963a-fca01b084bea)
+
 
 In OpenLANE, the generation of the Power Distribution Network (PDN) is a separate step that occurs after clock tree synthesis (CTS) and post-CTS static timing analysis (STA). It's important to note that PDN generation is not part of the floorplan run in the OpenLANE flow. You would typically generate the PDN using the following command:
 
 ```bash
 gen_pdn
 ```
-
 
 This command generates the necessary power distribution network for your chip design. It ensures that power is properly distributed to all the cells and components on the chip to meet the power requirements.
 
@@ -1262,9 +1275,92 @@ The gen_pdn command in ASIC design, which stands for Power Distribution Network 
 
 The gen_pdn command is crucial for ensuring that all components in the chip receive the required power to function correctly, and it plays a significant role in achieving power integrity in the chip design.
 
+## Routing
+
+Routing in the OpenLANE flow is a crucial step in the chip design process, and it involves two stages: global routing and detailed routing. Here are the key points regarding routing in OpenLANE:
+
+1. Global Routing:
+
+- In the global routing stage, the routing region is divided into rectangular grids, which are represented as coarse 3D routes.
+- This stage primarily utilizes the Fastroute tool to perform global routing.
+
+2. Detailed Routing:
+
+- Detailed routing involves working with finer grids and routing guides to implement the physical wiring of the chip.
+- TritonRoute is the primary tool used for detailed routing.
+
+###vFeatures of TritonRoute:
+
+- TritonRoute has several features, including honoring pre-processed route guides and assuming that each net satisfies inter-guide connectivity.
+- It uses a Mixed-Integer Linear Programming (MILP) based panel routing scheme.
+- TritonRoute employs an intra-layer parallel and inter-layer sequential routing framework to efficiently route nets.
+
+### Running Routing in OpenLANE:
+
+- The routing step can be initiated in OpenLANE using the command run_routing.
+- Various routing options and configurations can be set in the config.tcl file to customize the routing process.
+- Different routing strategies can be specified in the configuration, which may involve trade-offs between optimization and runtime.
+- For example, in the default setting for the picorv32a design, the routing step takes approximately 30 minutes with the current version of TritonRoute.
+
+### Important Considerations:
+
+- It's essential to set the CURRENT_DEF variable to pdn.def to ensure that the correct input is used for routing.
+- The two stages of routing, global route (Fastroute) and detailed route (TritonRoute), work together to generate the final routed design.
+- Fastroute is responsible for generating routing guides, while TritonRoute takes the global route information and optimizes the routing path to connect the pins efficiently.
+
+Routing plays a vital role in achieving physical connectivity between components in the chip and ensuring that the design meets performance and timing requirements.
+
+GDSII
+
+GDSII (Graphic Design Standard II) is a file format commonly used in the semiconductor industry to represent the layout of integrated circuits. Here are some key points regarding GDSII files in the OpenLANE flow:
+
+1. GDSII Format:
+- GDSII stands for Graphic Design Standard II.
+- It is a binary file format used to describe the physical layout of semiconductor devices, including masks and layers.
+- GDSII files contain detailed information about polygons, layers, text labels, and other elements that make up the layout of an integrated circuit.
+  
+2. Tape-Out:
+
+- The term "tape-out" refers to the process of finalizing the design of an integrated circuit and preparing it for fabrication at a semiconductor foundry.
+- Historically, GDS files were written onto magnetic tapes and physically sent to foundries for fabrication, hence the name "tape-out."
+
+3. Usage in OpenLANE:
+
+- In the OpenLANE flow, you can use the magic command to work with GDSII files.
+- The GDSII file generated during the design process is typically located in the results/signoff/magic directory.
+
+4. Design Rule Checking (DRC):
+
+- DRC is an essential step in the chip design process that checks for violations of design rules, ensuring that the layout meets fabrication requirements.
+- It's crucial to perform DRC checks on the GDSII file to identify and rectify any errors or violations.
+
+5. Layout Visualization:
+
+- GDSII files can be used to visualize and inspect the layout of the integrated circuit.
+- Magic is a popular tool for viewing and editing GDSII files, and it is often used in the semiconductor design process.
+
+6. No DRC Errors:
+
+- It's mentioned that no DRC errors are found, which indicates that the layout has passed design rule checking and is ready for tape-out.
+
+GDSII files play a critical role in the chip fabrication process, as they provide a standardized format for describing the physical layout of integrated circuits, ensuring accuracy and consistency during manufacturing.
 
 
+![Screenshot 2023-09-18 001802](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/758eefd8-795a-443a-adf9-078836b49b97)
 
+## Differences from older OpenLANE versions
 
+The newer versions of OpenLANE have introduced some differences and improvements compared to older versions. Here are a couple of key differences:
 
+### Reporting Location:
 
+In the latest version of OpenLANE, the reports generated during the design process are not displayed directly in the terminal. Instead, users need to access and verify these reports from the reports/results folder. This change can help organize and manage the generated reports more efficiently.
+
+### Integrated SPEF Extraction:
+
+In older versions of OpenLANE, users may have needed to perform SPEF (Standard Parasitic Exchange Format) extraction as a separate step in the design flow. However, in the newer versions, SPEF extraction has been integrated into the OpenLANE flow. This integration simplifies the design process by automatically handling SPEF extraction as part of the toolchain.
+
+# Acknowledgements
+
+- The OpenROAD Project
+- Kunal Ghosh
