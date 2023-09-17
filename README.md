@@ -824,7 +824,7 @@ magic -T sky130A.tech sky130_inv.mag &
 ```
 This command will open Magic with the specified technology file, allowing you to view and work with the CMOS inverter layout.
 
-command chalna hai screeenshot dena idahr
+![Screenshot 2023-09-17 192843](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/f6143402-59ee-49c6-9178-0b7b8cf313e6)
 
 
 Sky130's first layer is known as the local interconnect layer or "Locali." To verify a layout as that of a CMOS inverter:
@@ -845,7 +845,7 @@ ext2spice
 These commands perform the extraction process.
 
 
-idhar comad run krne hai
+![Screenshot 2023-09-17 193948](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/6517a924-58bd-4601-8591-1a9f19c3274a)
 
 
 The SPICE deck (sky130_in.spice) is updated to include the PMOS and NMOS libraries (pshort.lib and nshort.lib). Additionally, the minimum grid size of the inverter, obtained from the Magic layout, is included in the deck using the command .option scale=0.01u. The model names in the MOSFET definitions are also modified: the PMOS model name is changed to pshort.model.0, and the NMOS model name is changed to nshort.model.0.
@@ -862,3 +862,16 @@ run
 .end
 ```
 The final sky130_inv.spice file is modified to:
+
+![Screenshot 2023-09-17 194215](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/67951ef4-c765-4325-81d3-a3826b0e7b2e)
+
+For simulation, ngspice is invoked in the terminal:
+
+```bash
+ngspice sky130_inv.spice
+```
+The output "y" is to be plotted with "time" and swept over the input "a":
+
+```bash
+plot y vs time a
+```
