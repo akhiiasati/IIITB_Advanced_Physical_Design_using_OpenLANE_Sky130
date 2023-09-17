@@ -8,6 +8,7 @@ This project was completed as part of the "Advanced Physical Design using OpenLA
 - [Day 2: Good floorplan vs bad floorplan and introduction to library cells](#Day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
 - [DAY 3: Design a Library Cell using Magic Layout and Ngspice Characterization](#day-3-design-a-library-cell-using-magic-layout-and-ngspice-characterization)
 - [DAY 4: Pre-layout Timing Analysis and Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
+- [DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA](#day-5-final-steps-for-rtl2gds-using-tritonroute-and-opensta)
 
 ## Software Installation
 ### Step 1:
@@ -1070,3 +1071,200 @@ add_lefs -src $lefs
 # Run synthesis
 run_synthesis
 ```
+photo 
+
+Next floorplan is run, followed by placement:
+
+```bash
+run_floorplan
+run_placement
+```
+To check the layout invoke magic from the results/placement directory:
+
+```bash
+magic -T /home/devipriya/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.max.lef def read picorv32a.def &
+```
+
+Since the custom standard cell has been plugged into the openLANE flow, it would be visible in the layout.
+
+
+## Post-synthesis timing analysis
+
+Timing analysis is carried out outside the openLANE flow using OpenSTA tool. For this, a new file pre_sta.conf is created. This file would be reqiured to carry out the STA analysis. Invoke OpenSTA outside the openLANE flow as follows:
+
+```bash
+sta pre_sta.conf
+```
+
+Since clock tree synthesis has not been performed yet, the analysis is with respect to ideal clocks and only setup time slack is taken into consideration. The slack value is the difference between data required time and data arrival time. The worst slack value must be greater than or equal to zero. If a negative slack is obtained, following steps may be followed:
+
+Change synthesis strategy, synthesis buffering and synthesis sizing values
+
+Review maximum fanout of cells and replace cells with high fanout
+
+The lef file generated:
+
+![Screenshot 2023-09-17 230957](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/96546344-a304-4460-925d-87ee4e07842e)
+
+```bash
+VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+MACRO sky130_vsdinv
+  CLASS CORE ;
+  FOREIGN sky130_vsdinv ;
+  ORIGIN 0.000 0.000 ;
+  SIZE 1.380 BY 2.720 ;
+  SITE unithd ;
+  PIN A
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    ANTENNAGATEAREA 0.165600 ;
+    PORT
+      LAYER li1 ;
+        RECT 0.060 1.180 0.510 1.690 ;
+    END
+  END A
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    ANTENNADIFFAREA 0.287800 ;
+    PORT
+      LAYER li1 ;
+        RECT 0.760 1.960 1.100 2.330 ;
+        RECT 0.880 1.690 1.050 1.960 ;
+        RECT 0.880 1.180 1.330 1.690 ;
+        RECT 0.880 0.760 1.050 1.180 ;
+        RECT 0.780 0.410 1.130 0.760 ;
+    END
+  END Y
+  PIN VPWR
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER nwell ;
+        RECT -0.200 1.140 1.570 3.040 ;
+      LAYER li1 ;
+        RECT -0.200 2.580 1.430 2.900 ;
+        RECT 0.180 2.330 0.350 2.580 ;
+        RECT 0.100 1.970 0.440 2.330 ;
+      LAYER mcon ;
+        RECT 0.230 2.640 0.400 2.810 ;
+        RECT 1.000 2.650 1.170 2.820 ;
+      LAYER met1 ;
+        RECT -0.200 2.480 1.570 2.960 ;
+    END
+  END VPWR
+  PIN VGND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER li1 ;
+        RECT 0.100 0.410 0.450 0.760 ;
+        RECT 0.150 0.210 0.380 0.410 ;
+        RECT 0.000 -0.150 1.460 0.210 ;
+      LAYER mcon ;
+        RECT 0.210 -0.090 0.380 0.080 ;
+        RECT 1.050 -0.090 1.220 0.080 ;
+      LAYER met1 ;
+        RECT -0.110 -0.240 1.570 0.240 ;
+    END
+  END VGND
+
+```
+
+## Clock Tree Synthesis Stage:
+
+There are three parameters that we need to consider when building a clock tree:
+
+- Clock Skew = In order to have minimum skew between clock endpoints, clock tree is used. This results in equal wirelength (thus equal latency/delay) for every path of the clock.
+- Clock Slew = Due to wire resistance and capacitance of the clock nets, there will be slew in signal at the clock endpoint where signal is not the same with the original input clock signal anymore. This can be solved by clock buffers. Clock buffer differs in regular cell buffers since clock buffers has equal rise and fall time.
+- Crosstalk = Clock shielding prevents crosstalk to nearby nets by breaking the coupling capacitance between the victim (clock net) and aggresor (nets near the clock net), the shield might be connected to VDD or ground since those will not switch. Shileding can also be done on critical data nets.
+
+![190031283-3bc25c79-f622-4b58-a448-95982d32612d](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/1d5519f8-b7c7-4661-8c52-5c6409e24c0e)
+
+### CTS Command Script:
+
+1. The CTS (Clock Tree Synthesis) command script in OpenLANE helps you handle clock tree synthesis for your design. It involves adding clock buffers to your design to ensure proper clock distribution. Below is an overview of the CTS process and some important configuration variables:
+
+1. Modified Verilog Netlist: Before running CTS, you need to extract a modified Verilog netlist after performing timing ECO (Engineering Change Order), floorplan, and placement. This modified netlist is saved under `/runs/[date]/results/cts/`.
+
+3. TCL Procedure: OpenLANE commands like run_cts are implemented as TCL procedures (procs). These procs can be found in `/OpenLane/scripts/tcl_commands/`. For example, run_cts is implemented in `/OpenLane/scripts/tcl_commands/cts.tcl`. These procs call OpenROAD, which is responsible for running the actual CTS tool.
+
+Configuration Variables: The CTS process involves various configuration variables that control the behavior of TritonCTS (the CTS tool used by OpenLANE). Some important ones are:
+
+- `CTS_CLK_BUFFER_LIST`: This is a list of clock branch buffers that can be used in the clock tree. Examples include `sky130_fd_sc_hd__clkbuf_8`, `sky130_fd_sc_hd__clkbuf_4`, and `sky130_fd_sc_hd__clkbuf_2`.
+- `CTS_ROOT_BUFFER`: This variable specifies the clock buffer used at the root of the clock tree. It is typically the largest clock buffer responsible for driving the clock tree across the entire chip. Example: `sky130_fd_sc_hd__clkbuf_16`.
+- `CTS_MAX_CAP`: This variable defines the maximum capacitance that the output port of the root clock buffer can drive.
+
+These variables are defined in the /OpenLane/scripts/openroad/cts.tcl script, which contains the specific OpenROAD commands for running TritonCTS with the desired configurations.
+
+## Timing Analysis with Real Clocks:
+
+Setup and hold analysis with real clock will now include clock buffer delays:
+
+- In setup analysis, the point is that the data must arrive first before the clock rising edge to properly latch that data. Setup violation happens when path is slow. This is affected by parameters such as combinational delay, clock buffer delay, time period, setup time, and setup uncertainty (jitter).
+
+- Hold analysis is the delay that the MUX2 model inside the flip flop needs to move the data to outside. This is the time that the launch flop must hold the data before it reaches the capture flop. Hold analysis is done on the same rising clock edge for launch and capture flop unlike in setup analysis where it spans between two rising clock edges. Hold violation happens when path is too fast. This is affected by parameters such as combinational delay, clock buffer delays, and hold time. (time period and setup uncertainty does not matter since launch and capture flops will receive the same rising clock edges fo hold analysis)
+
+The goal is to have a positive slack on both setup and hold analysis.
+
+![190183335-fc20002a-b80b-4b86-ad0a-3db65a0b49c7](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/dc884f22-a85e-4796-9feb-96d110a55bb4)
+![190183335-fc20002a-b80b-4b86-ad0a-3db65a0b49c7](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/d306eee8-d335-4cac-a37e-491687d9caf7)
+![190183335-fc20002a-b80b-4b86-ad0a-3db65a0b49c7](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/96695664-303a-49f2-96da-696b2c14bb75)
+
+STA report for hold analysis (min path):
+
+![190203192-566f344e-b275-45de-af80-4058e1b34d31](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/31486e1c-f0d9-4480-b2f3-49e945ccb07d)
+
+STA report for setup analysis (max path):
+
+![190202789-c79cd727-ebe3-4bc5-8fdc-a0f4dce77dba](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/4e44a95f-18c6-4d8a-a69c-827f12a476f1)
+
+
+# DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA
+
+
+In OpenLANE, the generation of the Power Distribution Network (PDN) is a separate step that occurs after clock tree synthesis (CTS) and post-CTS static timing analysis (STA). It's important to note that PDN generation is not part of the floorplan run in the OpenLANE flow. You would typically generate the PDN using the following command:
+
+```bash
+gen_pdn
+```
+
+
+This command generates the necessary power distribution network for your chip design. It ensures that power is properly distributed to all the cells and components on the chip to meet the power requirements.
+
+The PDN generation step comes after CTS because it needs to consider the clock tree and its impact on power distribution. It's essential for ensuring the proper functioning and performance of your chip.
+
+Once you've run the gen_pdn command, you can confirm the success of PDN generation by checking the CURRENT_DEF environment variable, as mentioned in the previous response:
+
+```bash
+echo $::env(CURRENT_DEF)
+```
+
+If the PDN generation was successful, this command will display the path to the current DEF file, which should now include the generated PDN.
+
+We can confirm the success of PDN by checking the current def environment variable: `echo $::env(CURRENT_DEF)`
+
+![Screenshot 2023-09-17 233837](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/79034519-ff13-4e65-88f4-6432e86e7c2c)
+
+The gen_pdn command in ASIC design, which stands for Power Distribution Network generation, is a critical step in the chip design flow. Here are the key points regarding the gen_pdn command:
+
+- `Input DEF File`: The gen_pdn command takes the design_cts.def file as input. This DEF file contains the chip's physical design information after clock tree synthesis (CTS).
+- `Grid and Straps`: The command generates the power distribution network, including the grid and straps, for both Vdd (power) and Gnd (ground). These components are strategically placed around the standard cells in the chip layout.
+- `Standard Cell Height`: The height of standard cells is designed to be multiples of the space between the Vdd and Gnd rails. In this case, the pitch is 2.72. Adhering to these dimensions is essential to ensure proper power distribution to the standard cells.
+- `Power Entry Points`: Power is initially supplied to the chip through power pads. There are separate pads for Vdd and Gnd. From these pads, power enters the power distribution network through vias.
+- `Rings and Straps`: The power distribution network includes rings that encircle the standard cells. Vdd straps are connected to the Vdd ring, and Gnd straps are connected to the Gnd ring. Both horizontal and vertical straps are used.
+- `Connection to Standard Cells`: The power from the straps is supplied to the standard cells by connecting the straps to the rails of the standard cells. This ensures that each standard cell receives the required power.
+- `Handling Macros`: If macros (pre-designed blocks) are present in the chip design, the straps attach to the rings of the macros via macro pads. The power distribution network for macros is pre-configured.
+- `Metal Layers and Vias`: In this design, straps are typically located at metal layers 4 and 5, while the standard cell rails are at metal layer 1, Vias are used to connect these layers as needed to ensure proper power distribution.
+
+The gen_pdn command is crucial for ensuring that all components in the chip receive the required power to function correctly, and it plays a significant role in achieving power integrity in the chip design.
+
+
+
+
+
+
+
