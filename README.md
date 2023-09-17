@@ -928,6 +928,36 @@ Here are the computed values for these parameters:
 These parameters provide critical information about the performance of the inverter standard cell and are important for understanding its behavior in digital circuits.
 
 
-DAY 4: Pre-layout Timing Analysis and Importance of Good Clock Tree
+# DAY 4: Pre layout Timing Analysis and Importance of Good Clock Tree
 
+## Timing Analysis & CTS
 
+In timing analysis and clock tree synthesis (CTS), it's crucial to ensure that the ports specified in the `tracks.info` file are located at the intersection of horizontal and vertical tracks. This is particularly important for the CMOS inverter ports A and Y, which are on the li1 layer.
+
+To achieve this, you can access the tracks.info file, which contains information about the pitch and direction of tracks. By carefully analyzing this file, you can determine the placement of the ports A and Y to ensure they align with the grid of horizontal and vertical tracks. This alignment is essential for proper signal routing and timing in your design.
+
+![Screenshot 2023-09-17 201154](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/9d07c327-507e-4874-8566-de1b2e5a6a62)
+
+To ensure that the ports are located at the intersection points of the tracks, you can adjust the grid spacing in Magic (tkcon) to match the li1 layer's X and Y values. This alignment is crucial for proper signal routing and timing analysis. You can achieve convergence of the grid and tracks using the following command:
+
+```bash
+grid 0.46um 0.34um 0.23um 0.17um
+```
+
+photo lahgani hai idhar
+
+### Create port definition
+
+Creating port definitions for your cell is an important step in the design process, as it helps the placer and router tools understand the connectivity of your cell. Here are the steps to define ports for your cell in Magic Layout:
+
+1. Open Magic Layout window.
+2. Source the .mag file for your cell design (in this case, a simple CMOS inverter).
+3. Go to the "Edit" menu and select "Text." This will open a dialogue box.
+
+These steps will allow you to define ports and set the correct class and use attributes for each port. Defining ports in this way ensures that your cell's connectivity is properly conveyed to the tools in a standard format, making it easier for downstream processes like placement and routing.
+
+photo lagana hainidhar
+
+To define ports in Magic Layout, create boxes on specific layers corresponding to the ports, and label them with names. Attach sticky labels specifying the associated layer name. Enable the "Port enable" checkbox and uncheck "Default" for each box to designate them as ports. This process ensures proper identification and utilization of ports in the design.
+
+photo idahar
