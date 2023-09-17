@@ -6,6 +6,7 @@ This project was completed as part of the "Advanced Physical Design using OpenLA
 - [Software Installation](#software-installation)
 - [Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK](#day-1-inception-of-open-source-eda-openlane-and-sky130-pdk)
 - [Day 2: Good floorplan vs bad floorplan and introduction to library cells](#Day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
+- [DAY 3: Design a Library Cell using Magic Layout and Ngspice Characterization](#day-3-design-a-library-cell-using-magic-layout-and-ngspice-characterization)
 
 ## Software Installation
 ### Step 1:
@@ -636,3 +637,73 @@ Below are the timing variables for propagation delay. The red is input waveform 
 ![183232515-fe3cef76-8a2f-475d-9a64-392fc2fda111](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/4337a1b9-4ffb-431a-8beb-9ef647d345f0)
 
 Negative propagation delay is unexpected. That means the output comes before the input so designer needs to choose correct threshold point to produce positive delay. Delay threshold is usually 50% and slew rate threshold is usually 20%-80%.
+
+# DAY 3: Design a Library Cell using Magic Layout and Ngspice Characterization
+
+- [Labs for CMOS inverter ngspice simulations](#labs-for-cmos-inverter-ngspice-simulations)
+  - [Designing a Library Cell](#designing-a-library-cell)
+  
+## Labs for CMOS inverter ngspice simulations
+
+In OpenLANE, you can change configurations on the fly for your current session. For example, to switch the IO_mode to non-equidistant (mode 2), use `% set ::env(FP_IO_MODE) 2;`. After making the change, run the floorplan again with `% run_floorplan`. However, these changes won't affect the `runs/config.tcl` file, and they're only valid for the current session. You can check the current value of a configuration with echo `$::env(FP_IO_MODE)`.
+
+### Designing a Library Cell
+
+When designing a library cell, here are some key points to keep in mind:
+
+`SPICE Deck:` The SPICE deck represents the component connectivity, essentially serving as a netlist for the CMOS inverter. It specifies how the components (transistors, resistors, etc.) are connected.
+
+`SPICE Deck Values:` Values such as W/L (width/length) ratios are crucial. For example, "0.375u/0.25u" indicates that the width is 375nm, and the length is 250nm. In CMOS design, PMOS transistors are typically wider (2x or 3x) than NMOS transistors to achieve balanced performance.
+
+`Gate and Supply Voltages:` These voltages are usually multiples of the transistor length. For instance, in your example, the gate voltage is set at 2.5V. Proper voltage levels are vital for correct CMOS operation.
+
+`Adding Nodes:` Surround each component with nodes and give them meaningful names. These nodes are essential for identifying and connecting components in the SPICE simulation.
+
+![Screenshot 2023-09-17 145644](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/37bf48f5-a04c-4173-a7fb-f37304c56aee)
+
+#### Additional notes:
+
+`Width vs. Length:` In CMOS transistors, the width corresponds to the size of the source and drain regions, while the length is the distance between them. Proper sizing (W/L ratios) is crucial for transistor behavior and performance.
+
+`Carrier Mobility:` PMOS transistors have slower hole carrier mobility compared to NMOS's electron carrier mobility. To match rise and fall times and achieve balanced performance, PMOS transistors should be wider (thicker) to reduce resistance and increase carrier mobility.
+
+Designing a library cell involves careful consideration of these factors to ensure that the cell functions correctly and efficiently within a larger integrated circuit design.
+
+### SPICE Deck Netlist Description
+
+![Screenshot 2023-09-17 152638](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/8bdc900d-50a7-43a1-873d-ffa1b99a1913)
+
+Here are some important notes regarding SPICE simulation for CMOS components:
+
+Syntax for PMOS and NMOS Description: When describing PMOS and NMOS components in SPICE, use the following syntax:
+
+```css
+[component name] [drain] [gate] [source] [substrate] [transistor type] W=[width] L=[length]
+```
+
+- This syntax specifies the component's name, terminals (drain, gate, source), substrate connection, transistor type, and W/L ratios (width and length).
+
+- Component Description Based on Nodes and Values: Ensure that you describe all components in the SPICE netlist based on their nodes and associated values. This information defines the interconnections and characteristics of the components.
+
+- `.op Simulation:` The .op statement marks the start of the SPICE simulation operation. In this operation, the input voltage (Vin) will be swept from 0 to 2.5V in steps of 0.5V.
+
+`Model File:` tsmc_025um_model.mod is the model file that contains the technological parameters for the 0.25μm NMOS and PMOS transistors. These parameters are essential for accurate SPICE simulations.
+
+- Steps for SPICE Simulation:
+
+- Source the SPICE netlist file using `source [filename].cir`.
+- Run the simulation using run.
+- Set up plot configurations using `setplot`.
+- Perform a DC sweep analysis using `dc1`.
+- Plot the output (out) against the input (in) to observe the circuit's behavior.
+
+```bash
+source [filename].cir
+run
+setplot 
+dc1 
+plot out vs in 
+```
+
+These steps are essential for conducting SPICE simulations to analyze the performance of CMOS components and circuits accurately.
+
