@@ -852,6 +852,18 @@ The SPICE deck (sky130_in.spice) is updated to include the PMOS and NMOS librari
 
 Finally voltage sources and simulation commands are defined as follows:
 ```bash
+VDD VPWR 0 3.3V
+VSS VGND 0 0
+Va A VGND PUSLE(0V 3.3V 0 0.1ns 0.1 ns 2ns 4ns)
+.tran 1n 20n
+.control
+run 
+.endc
+.end
+```
+The final sky130_inv.spice file is modified to:
+
+```bash
 * SPICE3 file created from sky130_inv.ext - technology: sky130A
 
 .option scale=0.01u
@@ -882,17 +894,18 @@ run
 .endc
 .end
 ```
-The final sky130_inv.spice file is modified to:
-
-![Screenshot 2023-09-17 194215](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/67951ef4-c765-4325-81d3-a3826b0e7b2e)
 
 For simulation, ngspice is invoked in the terminal:
 
 ```bash
 ngspice sky130_inv.spice
 ```
+
+![Screenshot 2023-09-17 195854](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/7da5eab2-e3b3-4b66-9569-9ffec916fb15)
+
 The output "y" is to be plotted with "time" and swept over the input "a":
 
 ```bash
 plot y vs time a
 ```
+![Screenshot 2023-09-17 200022](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/77de0c57-2815-401e-96c8-390b0a832844)
