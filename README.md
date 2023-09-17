@@ -7,6 +7,7 @@ This project was completed as part of the "Advanced Physical Design using OpenLA
 - [Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK](#day-1-inception-of-open-source-eda-openlane-and-sky130-pdk)
 - [Day 2: Good floorplan vs bad floorplan and introduction to library cells](#Day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
 - [DAY 3: Design a Library Cell using Magic Layout and Ngspice Characterization](#day-3-design-a-library-cell-using-magic-layout-and-ngspice-characterization)
+- [DAY 4: Pre-layout Timing Analysis and Importance of Good Clock Tree](#day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
 
 ## Software Installation
 ### Step 1:
@@ -909,3 +910,24 @@ The output "y" is to be plotted with "time" and swept over the input "a":
 plot y vs time a
 ```
 ![Screenshot 2023-09-17 200022](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/77de0c57-2815-401e-96c8-390b0a832844)
+
+In inverter standard cell characterization, four important timing parameters are used:
+
+1. Rise Transition: This is the time taken for the output to rise from 20% of its maximum value to 80% of its maximum value.
+2. Fall Transition: This is the time taken for the output to fall from 80% of its maximum value to 20% of its maximum value.
+3. Cell Rise Delay: It is the delay experienced by the cell when the input rises from 50% to 50%, i.e., from a low to high transition.
+4. Cell Fall Delay: It is the delay experienced by the cell when the input falls from 50% to 50%, i.e., from a high to low transition.
+
+Here are the computed values for these parameters:
+
+- `Rise Transition:` 59.08 picoseconds
+- `Fall Transition:` 42.87 picoseconds
+- `Cell Rise Delay:` 56.36 picoseconds
+- `Cell Fall Delay:` 24.79 picoseconds
+
+These parameters provide critical information about the performance of the inverter standard cell and are important for understanding its behavior in digital circuits.
+
+
+DAY 4: Pre-layout Timing Analysis and Importance of Good Clock Tree
+
+
