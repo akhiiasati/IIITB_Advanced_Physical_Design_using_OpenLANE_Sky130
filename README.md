@@ -1002,4 +1002,71 @@ lef write
 
 This will generate the LEF file for the CMOS Inverter standard cell with the specified port definitions.
 
+![Screenshot 2023-09-17 214904](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/97cdb623-2ebe-41e3-9cc5-0c4ec3f822a4)
 
+### Integrating custom cell in OpenLANE
+
+To integrate a custom standard cell into OpenLANE, you can follow these steps:
+
+1. `Copy LEF File:` Copy your custom standard cell's LEF file, e.g., `sky130_vsdinv.lef`, to the `designs/picorv32a/src` directory.
+2. `Copy Library File:` Copy the library file that defines your custom CMOS inverter cell, such as sky130_fd_sc_hd_typical.lib, from the vsdstdcelldesign/libs directory to the same designs/picorv32a/src directory. You can also copy slow and fast library files if needed.
+3. `Modify config.tcl:` Open the config.tcl file in your OpenLANE working directory.
+
+Add or modify the paths to your LEF and library files as follows:
+```tcl
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__typical.lib"
+set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__slow.lib"
+set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__typical.lib"
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+```
+
+#### modified config.tcl file:
+
+```tcl
+
+# User config
+set ::env(DESIGN_NAME) "picorv32a"
+
+# Change if needed
+set ::env(VERILOG_FILES) "./designs/picorv32a/src/picorv32a.v"
+set ::env(SDC_FILES) "./designs/picorv32a/src/picorv32a.sdc"
+
+
+# turn off clock
+set ::env(CLOCK_PERIOD) "5.000"
+set ::env(CLOCK_PORT) "clk"
+
+set ::env(CLOCK_MET) $::env(CLOCK_PORT) 
+
+
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib "
+set ::env(LIB_MIN) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_MAX) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib "
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+
+set filename $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
+#set filename $::env(DESIGN_DIR)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
+if { [file exists $filename] == 1 } {
+      source $filename
+}
+```
+
+##### To integrate the standard cell into the OpenLANE flow and perform the mentioned steps, follow these commands:
+
+```bash
+# Prepare the design
+prep -design picorv32a -tag RUN_2022.08.17_16.22.21 -overwrite
+
+# Find and set the LEF files
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+
+# Add the LEF files to the design
+add_lefs -src $lefs
+
+# Run synthesis
+run_synthesis
+```
