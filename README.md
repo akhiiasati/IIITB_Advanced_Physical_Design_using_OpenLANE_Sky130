@@ -1172,7 +1172,6 @@ There are three parameters that we need to consider when building a clock tree:
 - Clock Slew = Due to wire resistance and capacitance of the clock nets, there will be slew in signal at the clock endpoint where signal is not the same with the original input clock signal anymore. This can be solved by clock buffers. Clock buffer differs in regular cell buffers since clock buffers has equal rise and fall time.
 - Crosstalk = Clock shielding prevents crosstalk to nearby nets by breaking the coupling capacitance between the victim (clock net) and aggresor (nets near the clock net), the shield might be connected to VDD or ground since those will not switch. Shileding can also be done on critical data nets.
 
-![190031283-3bc25c79-f622-4b58-a448-95982d32612d](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/1d5519f8-b7c7-4661-8c52-5c6409e24c0e)
 
 ### CTS Command Script:
 
@@ -1200,19 +1199,6 @@ Setup and hold analysis with real clock will now include clock buffer delays:
 
 The goal is to have a positive slack on both setup and hold analysis.
 
-![190183335-fc20002a-b80b-4b86-ad0a-3db65a0b49c7](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/dc884f22-a85e-4796-9feb-96d110a55bb4)
-![190183335-fc20002a-b80b-4b86-ad0a-3db65a0b49c7](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/d306eee8-d335-4cac-a37e-491687d9caf7)
-![190183335-fc20002a-b80b-4b86-ad0a-3db65a0b49c7](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/96695664-303a-49f2-96da-696b2c14bb75)
-
-STA report for hold analysis (min path):
-
-![190203192-566f344e-b275-45de-af80-4058e1b34d31](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/31486e1c-f0d9-4480-b2f3-49e945ccb07d)
-
-STA report for setup analysis (max path):
-
-![190202789-c79cd727-ebe3-4bc5-8fdc-a0f4dce77dba](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/4e44a95f-18c6-4d8a-a69c-827f12a476f1)
-
-
 # DAY 5: Final Steps for RTL2GDS using TritonRoute and OpenSTA
 
 ## Maze Routing:
@@ -1220,13 +1206,13 @@ One simple routing algorithm is Maze Routing or Lee's routing:
 
 The shortest path is one that follows a steady increment of one (1-to-9 on the example below). There might be multiple path like this but the best path that the tool will choose is one with less bends. The route should not be diagonal and must not overlap an obstruction such as macros.
 This algorithm however has high run time and consume a lot of memory thus more optimized routing algorithm is preferred (but the principles stays the same where route with shortest path and less bends is preferred)
-![190376984-ff6f4f02-af4f-472d-9422-294157221e9f](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/a7ba28c2-8469-49e2-859e-f88b766b7dda)
+
 
 ## Power Distribution Network (review):
 This is just a review on PDN. The power and ground rails has a pitch of 2.72um thus the reason why the customized inverter cell has a height of 2.72 or else the power and ground rails will not be able to power up the cell. Looking at the LEF file runs/[date]/tmp/merged.nom.lef, you will notice that all cells are of height 2.72um and only width differs.
 
 As shown below, power and ground flows from power/ground pads -> power/ground ring-> power/ground straps -> power/ground rails.
-![190429025-49ab6e33-8a67-4cea-8086-86eb73122282](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/31437c0f-0b37-4dfc-963a-fca01b084bea)
+
 
 
 In OpenLANE, the generation of the Power Distribution Network (PDN) is a separate step that occurs after clock tree synthesis (CTS) and post-CTS static timing analysis (STA). It's important to note that PDN generation is not part of the floorplan run in the OpenLANE flow. You would typically generate the PDN using the following command:
@@ -1249,7 +1235,6 @@ If the PDN generation was successful, this command will display the path to the 
 
 We can confirm the success of PDN by checking the current def environment variable: `echo $::env(CURRENT_DEF)`
 
-![Screenshot 2023-09-17 233837](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/79034519-ff13-4e65-88f4-6432e86e7c2c)
 
 The gen_pdn command in ASIC design, which stands for Power Distribution Network generation, is a critical step in the chip design flow. Here are the key points regarding the gen_pdn command:
 
