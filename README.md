@@ -1014,36 +1014,29 @@ set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky13
 set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
 ```
 
-#### modified config.tcl file:
+#### modified config.json file:
 
-```tcl
+```json
 
-# User config
-set ::env(DESIGN_NAME) "picorv32a"
-
-# Change if needed
-set ::env(VERILOG_FILES) "./designs/picorv32a/src/picorv32a.v"
-set ::env(SDC_FILES) "./designs/picorv32a/src/picorv32a.sdc"
-
-
-# turn off clock
-set ::env(CLOCK_PERIOD) "5.000"
-set ::env(CLOCK_PORT) "clk"
-
-set ::env(CLOCK_MET) $::env(CLOCK_PORT) 
-
-
-set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib "
-set ::env(LIB_MIN) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
-set ::env(LIB_MAX) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib "
-set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
-
-set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
-
-set filename $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
-#set filename $::env(DESIGN_DIR)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
-if { [file exists $filename] == 1 } {
-      source $filename
+{
+  "DESIGN_NAME": "picorv32",
+  "VERILOG_FILES": "dir::src/picorv32a.v",
+  "CLOCK_PORT": "clk",
+  "CLOCK_NET": "clk",
+  "FP_SIZING": "relative",
+  "LIB_SYNTH" : "dir::src/sky130_fd_sc_hd__typical.lib",
+  "LIB_FASTEST" : "dir::src/sky130_fd_sc_hd__fast.lib",
+  "LIB_SLOWEST" : "dir::src/sky130_fd_sc_hd__slow.lib",
+  "LIB_TYPICAL":"dir::src/sky130_fd_sc_hd__typical.lib",
+  "TEST_EXTERNAL_GLOB":"dir::../sd_fsm/src/*",
+  "SYNTH_DRIVING_CELL":"akhil_inv",
+  "pdk::sky130*": {
+    "FP_CORE_UTIL": 50,
+    "CLOCK_PERIOD": 65,
+    "scl::sky130_fd_sc_hd": {
+      "FP_CORE_UTIL": 60
+    }
+  }
 }
 ```
 
@@ -1051,7 +1044,7 @@ if { [file exists $filename] == 1 } {
 
 ```bash
 # Prepare the design
-prep -design picorv32a -tag RUN_2022.08.17_16.22.21 -overwrite
+prep -design picorv32a -tag RUN_2023.09.18_11.58.04 -overwrite
 
 # Find and set the LEF files
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
