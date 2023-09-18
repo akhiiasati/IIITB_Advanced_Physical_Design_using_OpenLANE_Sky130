@@ -1069,15 +1069,22 @@ Next floorplan is run, followed by placement:
 
 ```bash
 run_floorplan
-run_placement
 ```
 
-To check the layout invoke magic from the results/placement directory:
+To check the layout invoke magic from the results/floorplan directory:
 
 ```bash
 magic -T /home/devipriya/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.max.lef def read picorv32a.def &
 ```
-![Screenshot 2023-09-18 000548](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/a0261630-9e9b-402e-9322-dab37c6198b4)
+
+![Screenshot from 2023-09-18 18-21-30](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/ac439dbb-c73b-4082-ba48-b852e68e0dc6)
+
+
+```bash
+run_placement
+```
+
+![Screenshot from 2023-09-18 19-47-24](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/e2ac6d03-aff5-4082-9f49-d048f12754c0)
 
 
 ## Post-synthesis timing analysis
