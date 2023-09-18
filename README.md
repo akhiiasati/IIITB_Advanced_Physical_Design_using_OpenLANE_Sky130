@@ -475,7 +475,7 @@ After running the floorplan in OpenLANE:
 - To view the floorplan in Magic, navigate to the results/floorplan directory and use this command:
 
 ```bash
-magic -T /home/akhilasati/vsdstdcelldesign/libs/sky130A.tech lef read /home/akhilasati/OpenLane/designs/picorv32a/runs/RUN_2023.09.16_14.30.58/tmp/merged.min.lef def read picorv32a.def &
+magic -T ~/vsdstdcelldesign/libs/sky130A.tech lef read ../../tmp/merged.nom.lef def read picorv32.def &
 ```
 - Ensure the path is correct and points to your .def file.
 
