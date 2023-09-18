@@ -740,7 +740,6 @@ Creating Active Regions for Transistors:
 - `Si3N4 Layer:` Silicon nitride (Si3N4) prevents uncontrolled SiO2 growth during oxidation.
 - `SiO2 Layer (LOCOS):` Local Oxidation of Silicon (LOCOS) grows SiO2 for isolation between transistors.
 
-![187062659-9e18e9a5-eff4-4d01-804d-cc1e10597486](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/745d6c5d-3a14-4e46-9585-9ca19474bc82)
 
 3. N-Well and P-Well Fabrication: These are created to provide the necessary substrates for PMOS (N-Well) and NMOS (P-Well) transistors.
 
@@ -748,11 +747,9 @@ Creating Active Regions for Transistors:
 - `Mask 2:` This mask protects the N-Well (PMOS side) during the fabrication of the P-Well (NMOS side).
 - `Mask 3:` Mask 3 protects the P-Well (NMOS side) while the N-Well (PMOS side) is being fabricated.
 
-![187099587-4a837f08-b6d3-4cb9-afe6-75ee8d88cfff](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/17dba3a7-402c-40cb-9351-d979b8ca6a71)
 
 4. Formation of Gate: Gate fabrication impacts the threshold voltage of transistors.
 
-![187111068-874f408a-d41b-4b16-a5f0-49edfced8926](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/c50d1ad5-b6c5-4b66-b16b-19672b5eaf0f)
 
 Key factors affecting threshold voltage include:
   
@@ -761,7 +758,6 @@ Key factors affecting threshold voltage include:
 
 `Mask 6:` This mask is used for gate formation using a polysilicon layer.
 
-![187116601-0ac34212-3622-4719-9309-fca887ad995a](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/e0779a91-0d91-4a74-8da3-106625ce9e82)
 
 5. Lightly Doped Drain Formation: Before creating the source and drain layers, lightly doped impurities are introduced:
 
@@ -770,15 +766,12 @@ Key factors affecting threshold voltage include:
 
 Heavily Doped Impurity: The heavily doped impurity (N+ for NMOS and P+ for PMOS) is used for the actual source and drain regions. The lightly doped impurity helps maintain spacing between the source and drain, preventing hot electron and short-channel effects.
 
-![187121868-94dfade0-2c63-4c9c-afef-942ef9662d5a](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/ecc61d02-b095-4c3d-8cb4-1744f8a2c754)
-
 6. Source and Drain Formation: For the creation of the source and drain regions:
 - `Mask 9:` Used for N+ implantation.
 - `Mask 10:` Employed for P+ implantation.
 - `Channeling Prevention:` To prevent implantations from penetrating too deep into the substrate, a screen oxide layer is added before implantation.
 - `Side-Wall Spacers:` These spacers help maintain the N-/P- regions while implanting the N+/P+ regions.
 
-![187128442-76d48790-53a0-4ad2-9856-924f3efd33eb](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/fd44b096-fb2e-4f74-be54-1a0f2b39b7aa)
 
 7. Form Contacts and Interconnects: In this step, different materials are used for interconnections and contacts:
 - `TiN:` Used for local interconnections and bringing contacts to the top.
@@ -786,7 +779,6 @@ Heavily Doped Impurity: The heavily doped impurity (N+ for NMOS and P+ for PMOS)
 
 Mask 11: This mask is used to etch off the TiN interconnect for the first-layer contact.
 
-![187141267-b043152d-0a76-4101-90ec-82c9adcc64e2](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/f213be41-368a-469a-90ac-81d97ef9b3a0)
 
 8. Higher Level Metal Formation: This step involves the formation of higher-level metal interconnects. It includes the following sub-steps:
 
@@ -804,7 +796,6 @@ Mask 11: This mask is used to etch off the TiN interconnect for the first-layer 
 
 `Mask 16:` Used for making contact to the topmost layer.
 
-![187158161-4d230654-5102-4225-8e58-d6d8ed950990](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/262f58ff-f37f-4bd2-96c3-23db52d6bc4d)
 
 
 To integrate the CMOS inverter standard cell layout and perform SPICE extraction, follow these steps:
@@ -827,8 +818,6 @@ Now, you can invoke Magic to view the "sky130_inv.mag" file:
 magic -T sky130A.tech sky130_inv.mag &
 ```
 This command will open Magic with the specified technology file, allowing you to view and work with the CMOS inverter layout.
-
-![Screenshot 2023-09-17 192843](https://github.com/akhiiasati/IIITB_Advanced_Physical_Design_using_OpenLANE_Sky130/assets/43675821/f6143402-59ee-49c6-9178-0b7b8cf313e6)
 
 
 Sky130's first layer is known as the local interconnect layer or "Locali." To verify a layout as that of a CMOS inverter:
